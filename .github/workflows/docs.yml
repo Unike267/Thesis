@@ -1,0 +1,24 @@
+name: docs
+
+on:
+  push:
+
+jobs:
+
+  initial_research_doc:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: '🧰 Checkout'
+        uses: actions/checkout@v4
+
+      - uses: docker://ghcr.io/unike267/containers/latex-pygments:latest
+        with:
+          args: ./initial_research/make.sh
+      
+      - name: '📤 Upload artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: INITIAL_RESEARCH_DOC
+          path: ./initial_research/main.pdf
