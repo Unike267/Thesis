@@ -1,0 +1,60 @@
+\section{Introduction}
+
+\label{intro}
+
+To start on this long way we will focus on the principal key words of this Thesis.
+
+\vspace{5 mm}
+
+\noindent These are: 
+
+\begin{itemize}
+\item Spiking Neural Networks
+\item SPAD sensors
+\item DVS sensors
+\item TSN
+\item RISC-V.
+\end{itemize}
+
+\subsection{Spiking Neural Networks}
+
+\subsection{SPAD sensors}
+
+SPAD (Single-Photon Avalanche Diode) \cite{9031298} sensors are an advanced type of photodiode sensor, specifically designed to detect extremely low amounts of light, to the single photon level. 
+This makes them ideal for applications requiring exceptional sensitivity and the ability to measure extremely \textbf{fast} light events.
+
+\vspace{5 mm}
+
+\noindent Characteristics and Operation of SPADs:
+
+\begin{itemize}
+\item High Sensitivity
+    \begin{itemize}
+    \item[*] SPAD sensors can detect single photons, thanks to their ability to produce an \say{avalanche} of current when a single photon is detected.
+    \item[*] This mechanism allows the sensor to significantly amplify the photon signal, providing a clear and strong response.
+    \end{itemize}
+\item Fast Response Time
+    \begin{itemize}
+    \item[*] SPADs are capable of recording events in times on the order of picoseconds.
+    \item[*] This is useful in applications that require accurate photon arrival time (known as Time-of-Flight or TOF) measurements, such as in LIDAR and Time-Correlated Single Photon Counting (TCSPC), which is used in fluorescence studies.
+    \end{itemize}
+\item Geiger Mode Operation
+    \begin{itemize}
+    \item[*] SPADs operate in \say{Geiger} mode, which means that they are polarized at a voltage above the breakdown voltage. 
+    \item[*] This causes an electron avalanche when a photon is detected, which allows the detection of the photon to be clearly recorded.
+    \item[*] After detection, the sensor \textbf{needs a reset} to be ready for the next event.
+    \end{itemize}
+\item Dark noise/dark count noise
+    \begin{itemize}
+    \item[*] Although SPADs are very sensitive, they can suffer from “dark noise”, i.e. false signals caused by thermal electrons in the absence of light. 
+    \item[*] This can be significantly controlled with cooling systems or by using signal processing techniques to filter out false events.
+    \end{itemize}
+\end{itemize}
+
+\subsection{DVS sensors}
+
+\subsection{TSN}
+
+\subsection{RISC-V}
+
+
