@@ -30,24 +30,72 @@ This makes them ideal for applications requiring exceptional sensitivity and the
 \begin{itemize}
 \item High Sensitivity
     \begin{itemize}
-    \item[*] SPAD sensors can detect single photons, thanks to their ability to produce an \say{avalanche} of current when a single photon is detected.
-    \item[*] This mechanism allows the sensor to significantly amplify the photon signal, providing a clear and strong response.
+    \item[>] SPAD sensors can detect single photons, thanks to their ability to produce an \say{avalanche} of current when a single photon is detected.
+    \item[>] This mechanism allows the sensor to significantly amplify the photon signal, providing a clear and strong response.
     \end{itemize}
 \item Fast Response Time
     \begin{itemize}
-    \item[*] SPADs are capable of recording events in times on the order of picoseconds.
-    \item[*] This is useful in applications that require accurate photon arrival time (known as Time-of-Flight or TOF) measurements, such as in LIDAR and Time-Correlated Single Photon Counting (TCSPC), which is used in fluorescence studies.
+    \item[>] SPADs are capable of recording events in times on the order of picoseconds.
+    \item[>] This is useful in applications that require accurate photon arrival time (known as Time-of-Flight or TOF) measurements, such as in LIDAR and Time-Correlated Single Photon Counting (TCSPC), which is used in fluorescence studies.
     \end{itemize}
 \item Geiger Mode Operation
     \begin{itemize}
-    \item[*] SPADs operate in \say{Geiger} mode, which means that they are polarized at a voltage above the breakdown voltage. 
-    \item[*] This causes an electron avalanche when a photon is detected, which allows the detection of the photon to be clearly recorded.
-    \item[*] After detection, the sensor \textbf{needs a reset} to be ready for the next event.
+    \item[>] SPADs operate in \say{Geiger} mode, which means that they are polarized at a voltage above the breakdown voltage. 
+    \item[>] This causes an electron avalanche when a photon is detected, which allows the detection of the photon to be clearly recorded.
+    \item[>] After detection, the sensor \textbf{needs a reset} to be ready for the next event.
     \end{itemize}
 \item Dark noise/dark count noise
     \begin{itemize}
-    \item[*] Although SPADs are very sensitive, they can suffer from “dark noise”, i.e. false signals caused by thermal electrons in the absence of light. 
-    \item[*] This can be significantly controlled with cooling systems or by using signal processing techniques to filter out false events.
+    \item[>] Although SPADs are very sensitive, they can suffer from “dark noise”, i.e. false signals caused by thermal electrons in the absence of light. 
+    \item[>] This can be significantly controlled with cooling systems or by using signal processing techniques to filter out false events.
+    \end{itemize}
+\end{itemize}
+
+\vspace{5 mm}
+
+\noindent SPAD Sensor Applications:
+
+\vspace{5 mm}
+
+\noindent SPAD sensors are useful in many areas because of their their photon-level light detection capability and fast response.
+
+\begin{itemize}
+\item LIDAR (Light Detection and Ranging)
+    \begin{itemize}
+    \item[>] SPADs are an ideal choice for high-precision LIDAR systems that measure distances based on the time of flight of reflected photons. 
+    \item[>] This is useful in autonomous vehicles, mapping, and environmental monitoring.
+    \end{itemize}
+\item Biomedicine and Microscopy
+    \begin{itemize}
+    \item[>] In fluorescence microscopy, SPADs are used for precise photon detection in molecular dynamics studies, where scientists analyze how molecules interact as a function of time.
+    \end{itemize}
+\item Time-of-Flight (ToF) cameras
+    \begin{itemize}
+    \item[>] These cameras, which are used in smartphones and augmented reality devices, employ SPAD sensors to capture \textbf{depth information}.
+    \item[>] This allows measuring the distance to each point in the image, creating 3-D maps of the environment.
+    \end{itemize}
+\item Quantum Communications
+    \begin{itemize}
+    \item[>] SPADs are essential in quantum communications and quantum cryptography, as they can detect single photons that carry quantum information without loss of the signal integrity.
+    \end{itemize}
+\end{itemize}
+
+\vspace{5 mm}
+
+\noindent Advantages and Disadvantages
+
+\begin{itemize}
+\item Advantages:
+    \begin{itemize}
+    \item[>] Extreme photon sensitivity, appropriate for low light conditions.
+    \item[>] Ultra-fast response time, ideal for precise detection and analysis applications.
+    \item[>] Quantum information processing capability, important in cryptography and fundamental science.
+    \end{itemize}
+\item Disadvantages:
+    \begin{itemize}
+    \item[>] Dark noise, which can limit its accuracy if not properly controlled.
+    \item[>] Cost and complexity of manufacture, making them more expensive than other conventional light sensors.
+    \item[>] Need for cooling systems in applications where dark noise is critical, which can complicate system design.
     \end{itemize}
 \end{itemize}
 
