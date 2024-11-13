@@ -16,5 +16,7 @@ Repository to store some stuffs of my thesis.
 
 To perform this ASIC:
 
-![ASIC-Scheme](figures/ASIC-Scheme.svg)
+<p align="center">
+  <img src="figures/ASIC-Scheme.svg" alt="GitHub Stats">
+</p>
 
