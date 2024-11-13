@@ -16,6 +16,7 @@ Repository to store some stuffs of my thesis.
 
 To perform this ASIC:
 
+
 <p align="center">
   <img src="figures/ASIC-Scheme.svg" alt="GitHub Stats">
 </p>
