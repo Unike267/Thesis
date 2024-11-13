@@ -12,3 +12,9 @@
 
 Repository to store some stuffs of my thesis.
 
+## GOAL
+
+To perform this ASIC:
+
+![ASIC-Scheme](figures/ASIC-Scheme.svg)
+
