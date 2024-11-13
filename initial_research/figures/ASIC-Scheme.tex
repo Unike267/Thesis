@@ -1,0 +1,197 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangulos
+\def\neo{4,3}
+\def\fft{3.5,1.6}
+\def\fftins{3.3,0.5}
+\def\wr{3,3}
+\def\riscv{2.5,1}
+\def\spad{3,3}
+\def\aspad{3,1}
+\def\array{5,5.5}
+\def\pll{3,1}
+
+%Def distancias
+%NEORV32
+%NEORV32
+\def\neoh{2}
+\def\neov{1.5}
+%fft
+\def\fftdesplah{0.25}
+\def\fftdesplav{0.25}
+\def\ffth{1.75}
+\def\fftv{0.6}
+\def\fftinsdesplah{0.35}
+\def\fftinsdesplav{1.25}
+\def\fftinsh{1.65}
+\def\fftinsv{0.25}
+
+%Vertical gap
+\def\gapv{2}
+
+%WR
+%WR
+\def\wrdesplah{6}
+\def\wrdesplav{-2+\gapv}
+\def\wrh{1.5}
+\def\wrv{1.5}
+%RISC-V
+\def\riscvdesplah{\wrdesplah+0.25}
+\def\riscvdesplav{\wrdesplav+1.8}
+\def\riscvh{1.25}
+\def\riscvv{0.5}
+
+%SPAD
+%SPAD
+\def\spaddesplah{6}
+\def\spaddesplav{-6+\gapv}
+\def\spadh{1.5}
+\def\spadv{1.5}
+%ARRAY of SPADs
+\def\aspaddesplah{6}
+\def\aspaddesplav{-8.25+\gapv}
+\def\aspadh{1.5}
+\def\aspadv{0.5}
+\def\aspadgap{-1.25}
+
+%PLL
+\def\plldesplah{10}
+\def\plldesplav{\wrdesplav+1.8}
+\def\pllh{1.5}
+\def\pllv{0.5}
+
+%Ethernet
+\def\ethdesplah{15}
+\def\ethdesplav{\wrdesplav+\wrv/2+\wrv/4}
+\def\ethv{0.9}
+
+%CLK
+\def\clkdesplah{5}
+\def\clkdesplav{-0.5}
+
+%SYNC
+\def\syncdesplah{10}
+\def\syncdesplav{-0.25}
+
+%TITLE
+\def\titdesplah{6.75}
+\def\titdesplav{3.65}
+
+
+\begin{tikzpicture}
+\node (center) {};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITULO      %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\titdesplah,\titdesplav) node (name) {SoC (ASIC) [PERTE CHIP]};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLQUES      %%%%%%%%%%%%%%%%%%%%%%%%%
+%NEORV32
+%NEORV32
+\draw[fill=yellow!20,rounded corners] (0,0) rectangle ++(\neo);
+\path (center)+(\neoh,\neov/2+\neov) node (name) {NEORV32 (RISC-V)};
+%FFT
+\draw[fill=red!10,rounded corners] (\fftdesplah,\fftdesplav) rectangle ++(\fft);
+\path (center)+(\fftdesplah+\ffth,\fftdesplav+\fftv) node (name) {FFT COPRO};
+\draw[fill=red!30, dashdotted, rounded corners] (\fftinsdesplah,\fftinsdesplav) rectangle ++(\fftins);
+\path (center)+(\fftinsdesplah+\fftinsh,\fftinsdesplav+\fftinsv) node (name) [fontscale=-2] {CFU (Custom INS)};
+
+%WR
+%WR
+\draw[fill=blue!20,rounded corners] (\wrdesplah,\wrdesplav) rectangle ++(\wr);
+\path (center)+(\wrdesplah+\wrh,\wrdesplav+\wrv/2+\wrv/4) node (name) {White Rabbit};
+%RISC-V
+\draw[fill=green!20,opacity=0.8,rounded corners, draw=black!50, densely dotted] (\riscvdesplah,\riscvdesplav) rectangle ++(\riscv);
+\path (center)+(\riscvdesplah+\riscvh,\riscvdesplav+\riscvv) node (name) {RISC-V};
+
+%SPAD
+%SPAD
+\draw[fill=red!20] (\spaddesplah,\spaddesplav) rectangle ++(\spad);
+\path (center)+(\spaddesplah+\spadh,\spaddesplav+\spadv+\spadv/2) node (name) {SPAD Sensor};
+\filldraw (\spaddesplah+\spadh,\spaddesplav+\spadv-\spadv/4) circle (2pt);
+\draw (\spaddesplah+\spadh,\spaddesplav+\spadv-\spadv/4) circle (4pt);
+\draw (\spaddesplah+\spadh,\spaddesplav+\spadv-\spadv/4) circle (20pt);
+%ARRAY of SPADs
+\draw[fill=red!20,opacity=0.8, draw=black!50, dashed] (\aspaddesplah,\aspaddesplav) rectangle ++(\aspad);
+\filldraw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv) circle (2pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv) circle (4pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv) circle (10pt);
+\draw[fill=red!20,opacity=0.8, draw=black!50, dashed] (\aspaddesplah,\aspaddesplav+\aspadgap) rectangle ++(\aspad);
+\filldraw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+\aspadgap) circle (2pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+\aspadgap) circle (4pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+\aspadgap) circle (10pt);
+\draw[fill=red!20,opacity=0.8, draw=black!50, dashed] (\aspaddesplah,\aspaddesplav+2*\aspadgap) rectangle ++(\aspad);
+\filldraw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+2*\aspadgap) circle (2pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+2*\aspadgap) circle (4pt);
+\draw (\aspaddesplah+\aspadh,\aspaddesplav+\aspadv+2*\aspadgap) circle (10pt);
+\path (center)+(\aspaddesplah-\aspadh/2,\aspaddesplav-\aspadv-\aspadv/2) node[rotate=90] (name) {Possible Array of SPADs};
+\draw[loosely dotted] (\aspaddesplah+\aspadh,\aspaddesplav+2*\aspadgap-0.25) to (\aspaddesplah+\aspadh,\aspaddesplav+2*\aspadgap-1);
+
+%PLL
+\draw[fill=orange!20, draw=black!50] (\plldesplah,\plldesplav) rectangle ++(\pll);
+\path (center)+(\plldesplah+\pllh,\plldesplav+\pllv) node (name) {PLL};
+
+%ETH
+\path (center)+(\ethdesplah,\ethdesplav) node (name) {Ethernet};
+
+%CLK
+\path (center)+(\clkdesplah,\clkdesplav) node (name) {CLK};
+
+%SYNC
+\path (center)+(\syncdesplah,\syncdesplav) node (name) [fontscale=-2] {SYNC};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       FLECHAS      %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%NEORV32-WR
+\draw[<->]  (\neoh*2,\riscvdesplav+\riscvv) to (\wrdesplah,\riscvdesplav+\riscvv);
+%WR-PLL
+\draw[<-] (\wrdesplah+2*\wrh,\riscvdesplav+\riscvv) to (\plldesplah,\riscvdesplav+\riscvv);
+%WR-ETH
+\draw[<->] (\wrdesplah+2*\wrh,\wrdesplav+\wrv/2+\wrv/4) to (\ethdesplah-\ethv,\wrdesplav+\wrv/2+\wrv/4);
+%WR-SPAD
+\draw[->] (\wrdesplah+\wrh,\wrdesplav) to (\spaddesplah+\spadh,\spaddesplav+\spadv*2);
+%SPAD-NEORV32
+\draw[-] (\spaddesplah,\spaddesplav+\spadv-\spadv/4) to (\fftdesplah+\ffth,\spaddesplav+\spadv-\spadv/4);
+\draw[->] (\fftdesplah+\ffth,\spaddesplav+\spadv-\spadv/4) to (\fftdesplah+\ffth,\fftdesplav);
+%WR-CLK
+\draw[-] (\wrdesplah,\wrdesplav+0.11) to (\wrdesplah,\wrdesplav-0.5);
+\draw[->] (\wrdesplah,\wrdesplav-0.5) to (\wrdesplah-0.5,\wrdesplav-0.5);
+%WR-ARRAY of SPADs
+\draw[dotted] (\wrdesplah+\wrh,\spaddesplav+\spadv*2+\spadv/3) to (\wrdesplah+\wrh+3,\spaddesplav+\spadv*2+\spadv/3);
+\draw[dotted] (\wrdesplah+\wrh+3,\spaddesplav+\spadv*2+\spadv/3) to (\wrdesplah+\wrh+3,\aspaddesplav+2*\aspadgap+\aspadv);
+\draw[dotted] (\wrdesplah+\wrh+3,\aspaddesplav+\aspadv) to (\aspaddesplah+2*\aspadh,\aspaddesplav+\aspadv);
+\draw[dotted] (\wrdesplah+\wrh+3,\aspaddesplav+\aspadv+\aspadgap) to (\aspaddesplah+2*\aspadh,\aspaddesplav+\aspadv+\aspadgap);
+\draw[dotted] (\wrdesplah+\wrh+3,\aspaddesplav+2*\aspadgap+\aspadv) to (\aspaddesplah+2*\aspadh,\aspaddesplav+2*\aspadgap+\aspadv);
+\draw[loosely dotted] (\wrdesplah+\wrh+3,\aspaddesplav+2*\aspadgap+\aspadv) to (\wrdesplah+\wrh+3,\aspaddesplav+2*\aspadgap-1);
+%ARRAY of SPADs-NEORV32
+\draw[dotted] (\aspaddesplah-\aspadh,\aspaddesplav+\aspadv) to (\fftdesplah+\ffth,\aspaddesplav+\aspadv);
+\draw[dotted] (\aspaddesplah-\aspadh,\aspaddesplav+\aspadv+\aspadgap) to (\fftdesplah+\ffth,\aspaddesplav+\aspadv+\aspadgap);
+\draw[dotted] (\aspaddesplah-\aspadh,\aspaddesplav+2*\aspadgap+\aspadv) to (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap+\aspadv);
+\draw[dotted] (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap+\aspadv) to (\fftdesplah+\ffth,0);
+\draw[loosely dotted] (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap+\aspadv) to (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap-1);
+
+\begin{pgfonlayer}{background}
+    %Background
+    \path [fill=white!20] (-0.5,-10.5) rectangle ++(16.5,15);
+    %ASIC
+    \path [fill=gray!10,opacity=0.5,draw=black!50, loosely dashdotted] (-0.25,-10.25) rectangle ++(13.5,14.5);
+    %SPADs Array
+    \path[fill=gray!20,opacity=0.5,draw=black!50, dashed] (\aspaddesplah-\aspadh,\aspaddesplav+2*\aspadgap-\aspadv-\aspadv/2-0.5) rectangle ++(\array);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
