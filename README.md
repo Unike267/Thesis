@@ -16,8 +16,15 @@ Repository to store some stuffs of my thesis.
 
 To perform this ASIC:
 
-
 <p align="center">
-  <img src="figures/ASIC-Scheme.svg" alt="GitHub Stats">
+  <img src="figures/ASIC-Scheme.svg" alt="ASIC Schematic">
 </p>
 
+
+---
+
+This work was partially supported by Union Europea-NextGenerationEU through the Cátedras Chip program SOC4SENSING TSI-069100-2023-0004.
+
+<p align="center">
+  <img src="figures/logos_perte.png" alt="European funds">
+</p>
