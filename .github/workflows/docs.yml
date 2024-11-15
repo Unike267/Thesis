@@ -2,11 +2,14 @@ name: docs
 
 on:
   push:
+    tags:
+      - "v0.0.1"
 
 jobs:
 
   initial_research_doc:
     runs-on: ubuntu-latest
+
 
     steps:
 
@@ -21,4 +24,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: INITIAL_RESEARCH_DOC
-          path: ./initial_research/main.pdf
+          path: ./initial_research/INITIAL_RESEARCH_DOC.pdf
+
+      - name: Upload artifact to the tag
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./initial_research/INITIAL_RESEARCH_DOC.pdf
+          token: GITHUB_TOKEN
