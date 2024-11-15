@@ -1,7 +1,12 @@
 *.aux
-*log.log
-*main-blx.bib
-*main.bbl
-*main.pdf
+*.log
+*.bib
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.pdf
 *.run.xml
 
