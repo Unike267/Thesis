@@ -2,6 +2,12 @@ name: docs
 
 on:
   push:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
 
 jobs:
 
@@ -23,13 +29,13 @@ jobs:
           name: INITIAL_RESEARCH_DOC
           path: ./initial_research/INITIAL_RESEARCH_DOC.pdf
 
-#      - name: '📤 Upload Release Asset'
-#        id: 1
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: https://uploads.github.com/repos/Unike267/Thesis/releases/1/assets{?name,label}
-#          asset_path: ./initial_research/INITIAL_RESEARCH_DOC.pdf
-#          asset_name: INITIAL_RESEARCH_DOC
-#          asset_content_type: docs/initial_research_doc
+      - name: '📤 Upload Release Asset'
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: https://uploads.github.com/repos/Unike267/Thesis/releases/185890332/assets{?name,label}
+          asset_path: ./initial_research/INITIAL_RESEARCH_DOC.pdf
+          asset_name: INITIAL_RESEARCH_DOC.pdf
+          asset_content_type: docs/initial_research_doc
