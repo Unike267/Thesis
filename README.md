@@ -21,13 +21,13 @@ This document is generated in CI (Continuous Integration) through the following 
 
 - `ghcr.io/unike267/containers/latex-pygments:latest`
 
-The generated PDF file is available in the repository [actions](https://github.com/Unike267/Thesis/actions). 
+The generated PDF file is available in [releases](https://github.com/Unike267/Thesis/releases). 
+
+In addition to this, this file is available in the repository [actions](https://github.com/Unike267/Thesis/actions). 
 
 - Workflow: `docs` 
 
-It is uploaded as an artificat so you can download it.
-
-- Name: `INITIAL_RESEARCH_DOC`
+- Artifact name: `INITIAL_RESEARCH_DOC`
 
 ## GOAL
 
