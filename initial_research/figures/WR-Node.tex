@@ -1,0 +1,388 @@
+\documentclass[]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangles 
+%User-Core
+\def\UC{3.5,3}
+%EtherBone
+\def\EB{2.5,1}
+%WR-impl
+\def\WRI{3.5,2.5}
+%FMC
+\def\FMC{5,4}
+%Socket
+\def\Sock{1,3.5}
+%SFP
+\def\SFP{3,1}
+%FPGA
+\def\FPGA{6,11}
+%SPEC
+\def\SPEC{16,12}
+%Network
+\def\NET{30}
+%WR
+\def\WR{6,6}
+%External PHY
+\def\ExP{3,1.5}
+%External oscillators
+\def\ExO{3,1.5}
+%EEPROM
+\def\ROM{3,1}
+%WR Node Device background
+\def\BackO{24,13}
+%WR Node IP Core background
+\def\BackT{24,8}
+%Background
+\def\Back{25,24}
+
+%Def displacements
+
+%Vertical gap
+\def\gapv{0}
+\def\gapIP{-2}
+
+%WR Node Device:
+%User-Core
+\def\UCdisplah{6}
+\def\UCdisplav{4.5+\gapv}
+\def\UCh{1.75}
+\def\UCv{1.5}
+%EtherBone
+\def\EBdisplah{6}
+\def\EBdisplav{1.5+\gapv}
+\def\EBh{1.25}
+\def\EBv{0.5}
+%WR-impl
+\def\WRIdisplah{6}
+\def\WRIdisplav{-2+\gapv}
+\def\WRIh{1.75}
+\def\WRIv{1.25}
+\def\GapToLogov{0.5}
+%FMC
+\def\FMCdisplah{10.5}
+\def\FMCdisplav{3+\gapv}
+\def\FMCh{3}
+\def\FMCv{2}
+%Socket
+\def\Sockdisplah{10.85}
+\def\Sockdisplav{3.25+\gapv}
+\def\Sockh{0.5}
+\def\Sockv{1.75}
+%SFP
+\def\SFPdisplah{0.25}
+\def\SFPdisplav{-1.25+\gapv}
+\def\SFPh{1.5}
+\def\SFPv{0.5}
+%FPGA
+\def\FPGAdisplah{5}
+\def\FPGAdisplav{-2.5+\gapv}
+\def\FPGAh{3}
+\def\FPGAv{10.5}
+%SPEC
+\def\SPECdisplah{0}
+\def\SPECdisplav{-3+\gapv}
+\def\SPECh{1.5}
+\def\SPECv{11.5}
+%Network
+\def\NETdisplah{-2.75}
+\def\NETdisplav{-0.75+\gapv}
+%CLOCK
+\def\CLKdisplah{9}
+\def\CLKdisplav{5+\gapv}
+%TITLE ONE
+\def\titOdisplah{-3}
+\def\titOdisplav{3+\gapv}
+%WR Node Device background
+\def\BackOdisplah{-6}
+\def\BackOdisplav{-3.5+\gapv}
+
+
+%WR Node IP Core:
+%WR
+\def\WRdisplah{5}
+\def\WRdisplav{-10+\gapv+\gapIP}
+\def\WRh{3}
+\def\WRv{3}
+%External PHY
+\def\ExPdisplah{0.25}
+\def\ExPdisplav{-6+\gapv+\gapIP}
+\def\ExPh{1.5}
+\def\ExPv{0.75}
+%External oscillators
+\def\ExOdisplah{0.25}
+\def\ExOdisplav{-8+\gapv+\gapIP}
+\def\ExOh{1.5}
+\def\ExOv{0.75}
+%EEPROM
+\def\ROMdisplah{0.25}
+\def\ROMdisplav{-9.5+\gapv+\gapIP}
+\def\ROMh{1.5}
+\def\ROMv{0.5}
+%TITLE TWO
+\def\titTdisplah{-3}
+\def\titTdisplav{-7.5+\gapv+\gapIP}
+%WR Node IP Core background
+\def\BackTdisplah{-6}
+\def\BackTdisplav{-11.5+\gapv+\gapIP}
+
+%Background
+\def\Backdisplah{-6.5}
+\def\Backdisplav{-14+\gapv}
+
+%TEXT:
+%WR Node Device:
+
+%WISHBONE
+\def\WBdisplah{7.25}
+\def\WBdisplav{3.5+\gapv}
+%TIME
+\def\TMdisplah{8.7}
+\def\TMdisplav{3.25+\gapv}
+
+%WR Node IP Core:
+%TX
+\def\TXdisplah{-0.75}
+\def\TXdisplav{-4.5+\gapv+\gapIP}
+%RX
+\def\RXdisplah{-0.75}
+\def\RXdisplav{-6+\gapv+\gapIP}
+%ETH
+\def\ETHdisplah{-0.75}
+\def\ETHdisplav{-5.25+\gapv+\gapIP}
+%CLK REF
+\def\CRdisplah{6.05}
+\def\CRdisplav{-6.75+\gapv+\gapIP}
+%CLK DMTD
+\def\CDdisplah{6.25}
+\def\CDdisplav{-7.25+\gapv+\gapIP}
+%Adjust
+\def\ADdisplah{5.75}
+\def\ADdisplav{-7.75+\gapv+\gapIP}
+%I2C
+\def\ICdisplah{5.5}
+\def\ICdisplav{-9+\gapv+\gapIP}
+%Source
+\def\SOdisplah{12}
+\def\SOdisplav{-4.5+\gapv+\gapIP}
+%Sink
+\def\SIdisplah{12}
+\def\SIdisplav{-5.25+\gapv+\gapIP}
+%1-PPS
+\def\PPdisplah{10.25}
+\def\PPdisplav{-6.85+\gapv+\gapIP}
+%Timecode
+\def\TCdisplah{10}
+\def\TCdisplav{-8+\gapv+\gapIP}
+%Frequency
+\def\FRdisplah{10}
+\def\FRdisplav{-8.5+\gapv+\gapIP}
+%MAC I/F
+\def\IFdisplah{14.5}
+\def\IFdisplav{-5.25+\gapv+\gapIP}
+%Pipelined WB Slave I/F
+\def\PIdisplah{15.5}
+\def\PIdisplav{-6.9+\gapv+\gapIP}
+%Timming I/F
+\def\TIdisplah{14.65}
+\def\TIdisplav{-8.4+\gapv+\gapIP}
+%Control/status pins
+\def\CSdisplah{15.25}
+\def\CSdisplav{-9.5+\gapv+\gapIP}
+
+\begin{tikzpicture}
+\node (center) {};
+\path (center)+(0,-20) node (name) {c};
+%\path (center)+(\FMCdisplah,0) node (name) {ce};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE ONE     %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\titOdisplah,\titOdisplav) node [fontscale=3](name) {WR Node Device};
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE TWO     %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\titTdisplah,\titTdisplav) node [fontscale=3] (name) {WR Node IP Core};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLOCKS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WR Node Device:
+
+%SPEC
+\draw[fill=green!40,rounded corners] (\SPECdisplah,\SPECdisplav) rectangle ++(\SPEC);
+\path (center)+(\SPECdisplah+\SPECh,\SPECdisplav+\SPECv) node [fontscale=2] (name) {SPEC};
+%FPGA
+\draw[fill=blue!50,rounded corners] (\FPGAdisplah,\FPGAdisplav) rectangle ++(\FPGA);
+\path (center)+(\FPGAdisplah+\FPGAh,\FPGAdisplav+\FPGAv) node [fontscale=1] (name) {FPGA};
+%WR-impl
+\draw[fill=red!60,rounded corners] (\WRIdisplah,\WRIdisplav) rectangle ++(\WRI);
+\path (center)+(\WRIdisplah+\WRIh,\WRIdisplav+\WRIv+\GapToLogov) node (name) {WR PTP Core};
+%EtherBone
+\draw[fill=pink!40,rounded corners] (\EBdisplah,\EBdisplav) rectangle ++(\EB);
+\path (center)+(\EBdisplah+\EBh,\EBdisplav+\EBv) node (name) {EtherBone};
+%User-Core
+\draw[fill=orange!40,rounded corners] (\UCdisplah,\UCdisplav) rectangle ++(\UC);
+\path (center)+(\UCdisplah+\UCh,\UCdisplav+\UCv) node (name) {User Core};
+%FMC
+\draw[fill=orange!70,rounded corners] (\FMCdisplah,\FMCdisplav) rectangle ++(\FMC);
+\path (center)+(\FMCdisplah+\FMCh,\FMCdisplav+\FMCv) node (name) {FMC-Base Card};
+%Socket
+\draw[fill=green!40,rounded corners] (\Sockdisplah,\Sockdisplav) rectangle ++(\Sock);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv-\Sockv/2-\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv-\Sockv/2) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv-\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv+\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv+\Sockv/2) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh-\Sockh/2,\Sockdisplav+\Sockv+\Sockv/2+\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv-\Sockv/2-\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv-\Sockv/2) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv-\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv+\Sockv/4) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv+\Sockv/2) circle (3pt);
+\filldraw[fill=green!100] (\Sockdisplah+\Sockh+\Sockh/2,\Sockdisplav+\Sockv+\Sockv/2+\Sockv/4) circle (3pt);
+%SFP
+\draw[fill=black!30,rounded corners] (\SFPdisplah,\SFPdisplav) rectangle ++(\SFP);
+\path (center)+(\SFPdisplah+\SFPh,\SFPdisplav+\SFPv) node (name) {SFP};
+%Network
+\filldraw[fill=gray!10,decorate,decoration=zigzag,thick] (\NETdisplah,\NETdisplav) circle (\NET pt);
+\path (center)+(\NETdisplah,\NETdisplav) node (name) {Network};
+%CLOCK
+\filldraw[fill=gray!40] (\CLKdisplah,\CLKdisplav) circle (12pt);
+\filldraw[fill=gray!140] (\CLKdisplah,\CLKdisplav) circle (1pt);
+\draw[black,thick,arrows={-}] (\CLKdisplah,\CLKdisplav) to (\CLKdisplah,\CLKdisplav+0.4);
+\draw[black,thick,arrows={-}] (\CLKdisplah,\CLKdisplav) to (\CLKdisplah+0.2,\CLKdisplav+0.2);
+
+%WR Node IP Core:
+
+%WR
+\draw[fill=red!60,rounded corners] (\WRdisplah,\WRdisplav) rectangle ++(\WR);
+\path (center)+(\WRdisplah+\WRh,\WRdisplav+\WRv+\GapToLogov*4) node (name) {WR PTP Core};
+%External PHY
+\draw[fill=gray!20,rounded corners,dashed] (\ExPdisplah,\ExPdisplav) rectangle ++(\ExP);
+\path (center)+(\ExPdisplah+\ExPh,\ExPdisplav+\ExPv) node (name) {External PHY};
+%External oscillators
+\draw[fill=gray!20,rounded corners] (\ExOdisplah,\ExOdisplav) rectangle ++(\ExO);
+\path (center)+(\ExOdisplah+\ExOh,\ExOdisplav+\ExOv+\ExOv/3) node (name) {External};
+\path (center)+(\ExOdisplah+\ExOh,\ExOdisplav+\ExOv-\ExOv/3) node (name) {Oscillators};
+%EEPROM
+\draw[fill=gray!20,rounded corners,dashed] (\ROMdisplah,\ROMdisplav) rectangle ++(\ROM);
+\path (center)+(\ROMdisplah+\ROMh,\ROMdisplav+\ROMv) node (name) {EEPROM};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       ARROWS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WR Node Device:
+
+%EtherBone-WRI
+\draw[blue,ultra thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh,\EBdisplav) to (\EBdisplah+\EBh,\WRIdisplav+2*\WRIv);
+%EtherBone-User Core
+\draw[blue,thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh*0.4,\EBdisplav+\EBv*2) to (\EBdisplah+\EBh*0.4,\UCdisplav);
+\draw[blue,thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh*0.8,\EBdisplav+\EBv*2) to (\EBdisplah+\EBh*0.8,\UCdisplav);
+\draw[blue,thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh*1.2,\EBdisplav+\EBv*2) to (\EBdisplah+\EBh*1.2,\UCdisplav);
+\draw[blue,thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh*1.6,\EBdisplav+\EBv*2) to (\EBdisplah+\EBh*1.6,\UCdisplav);
+%WRI-User Core
+\draw[purple,ultra thick,arrows={-Stealth}] (\CLKdisplah,\WRIdisplav+2*\WRIv) to (\CLKdisplah,\UCdisplav);
+%SFP-WRI
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\SFPdisplah+2*\SFPh,\SFPdisplav+\SFPv) to (\WRIdisplah,\SFPdisplav+\SFPv);
+%SFP-Network
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\SFPdisplah,\SFPdisplav+\SFPv) to (\NETdisplah+1,\SFPdisplav+\SFPv);
+%FMC-User Core
+\draw[green!40,ultra thick,arrows={Stealth-Bracket[reversed,line cap=round,width=105pt]}] (\UCdisplah+\UCh*2,\CLKdisplav) to (\Sockdisplah,\CLKdisplav);
+%FMC-EXT
+\draw[orange,ultra thick,arrows={Stealth-Stealth}] (\FMCdisplah+5,\FMCdisplav+\FMCv) to (\FMCdisplah+5+2,\FMCdisplav+\FMCv);
+
+%WR Node IP Core:
+
+%WR-ExP
+\draw[black,arrows={-}] (\ExPdisplah+\ExPh*2,\ExPdisplav+\ExPv+\ExPv/2) to (\WRdisplah,\ExPdisplav+\ExPv+\ExPv/2);
+\draw[black,arrows={-Stealth}] (\ExPdisplah+\ExPh*2,\ExPdisplav+\ExPv-\ExPv/2) to (\WRdisplah,\ExPdisplav+\ExPv-\ExPv/2);
+%ExP-EXT
+\draw[black,arrows={-Stealth}] (\ExPdisplah,\ExPdisplav+\ExPv+\ExPv/2) to (\ExPdisplah-2,\ExPdisplav+\ExPv+\ExPv/2);
+\draw[black,arrows={-}] (\ExPdisplah,\ExPdisplav+\ExPv-\ExPv/2) to (\ExPdisplah-2,\ExPdisplav+\ExPv-\ExPv/2);
+%WR-ExO
+\draw[black,arrows={-Stealth}] (\ExOdisplah+\ExOh*2,\ExOdisplav+\ExOv+\ExOv/2) to (\WRdisplah,\ExOdisplav+\ExOv+\ExOv/2);
+\draw[black,arrows={-Stealth}] (\ExOdisplah+\ExOh*2,\ExOdisplav+\ExOv) to (\WRdisplah,\ExOdisplav+\ExOv);
+\draw[black,arrows={Stealth-}] (\ExOdisplah+\ExOh*2,\ExOdisplav+\ExOv-\ExOv/2) to (\WRdisplah,\ExOdisplav+\ExOv-\ExOv/2);
+%EEPROM
+\draw[black,arrows={Stealth-Stealth}] (\ROMdisplah+\ROMh*2,\ROMdisplav+\ROMv) to (\WRdisplah,\ROMdisplav+\ROMv);
+%WR-MAC
+\draw[black,arrows={-Stealth}] (\WRdisplah+\WRh*2,\ExPdisplav+\ExPv+\ExPv/2) to (\WRdisplah+\WRh*2+2,\ExPdisplav+\ExPv+\ExPv/2);
+\draw[black,arrows={Stealth-}] (\WRdisplah+\WRh*2,\ExPdisplav+\ExPv-\ExPv/2) to (\WRdisplah+\WRh*2+2,\ExPdisplav+\ExPv-\ExPv/2);
+\draw[decorate,decoration=brace,ultra thick] (\WRdisplah+\WRh*2+2+0.1,\ExPdisplav+\ExPv+\ExPv/2+0.1) -- (\WRdisplah+\WRh*2+2+0.1,\ExPdisplav+\ExPv-\ExPv/2-0.1);
+%WR-PPS
+\draw[black,arrows={Stealth-Stealth}] (\WRdisplah+\WRh*2,\ExOdisplav+\ExOv+\ExOv/2) to (\WRdisplah+\WRh*2+2,\ExOdisplav+\ExOv+\ExOv/2);
+%WR-Timming
+\draw[black,arrows={Stealth-Stealth}] (\WRdisplah+\WRh*2,\ExOdisplav+\ExOv-\ExOv) to (\WRdisplah+\WRh*2+2,\ExOdisplav+\ExOv-\ExOv);
+\draw[black,arrows={Stealth-Stealth}] (\WRdisplah+\WRh*2,\ExOdisplav+\ExOv-2*\ExOv) to (\WRdisplah+\WRh*2+2,\ExOdisplav+\ExOv-2*\ExOv);
+\draw[black,arrows={Stealth-Stealth}] (\WRdisplah+\WRh*2,\ExOdisplav+\ExOv-2*\ExOv+\ExOv/2) to (\WRdisplah+\WRh*2+2,\ExOdisplav+\ExOv-2*\ExOv+\ExOv/2);
+\draw[decorate,decoration=brace,ultra thick] (\WRdisplah+\WRh*2+2+0.1,\ExOdisplav+\ExOv-\ExOv+0.1) -- (\WRdisplah+\WRh*2+2+0.1,\ExOdisplav+\ExOv-2*\ExOv-0.1);
+%WR Control
+\draw[black,arrows={Stealth-Stealth}] (\WRdisplah+\WRh*2,\ROMdisplav) to (\WRdisplah+\WRh*2+2,\ROMdisplav);
+
+\draw [decorate,ultra thick, decoration = {brace,raise=5pt,aspect=0.573}] (-6,-5.2) --  (18,-5.2);
+\draw[black, ultra thick,arrows={-Stealth}] (\WRIdisplah+\WRIh,-4.97) to (\WRIdisplah+\WRIh,\WRIdisplav);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TEXT        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WR Node Device:
+
+%Wishbone
+\node [cloud, draw,fill=blue!20,cloud puffs=10,cloud puff arc=100, aspect=1.75, inner ysep=1em] at (\WBdisplah,\WBdisplav) {};
+\path (center)+(\WBdisplah,\WBdisplav) node [blue,fontscale=-2] (name) {WISHBONE};
+%TIME
+\path (center)+(\TMdisplah,\TMdisplav) node [red,fontscale=2,rotate=90] (name) {TIME};
+
+%WR Node IP Core:
+%TX
+\path (center)+(\TXdisplah,\TXdisplav) node (name) {Tx};
+%RX
+\path (center)+(\RXdisplah,\RXdisplav) node (name) {Rx};
+%ETH
+\path (center)+(\ETHdisplah,\ETHdisplav) node (name) {Ethernet};
+%CLK REF
+\path (center)+(\CRdisplah,\CRdisplav) node (name) {CLK-REF};
+%CLK DMTD
+\path (center)+(\CDdisplah,\CDdisplav) node (name) {CLK-DMTD};
+%Adjust
+\path (center)+(\ADdisplah,\ADdisplav) node (name) {Adjust};
+%I2C
+\path (center)+(\ICdisplah,\ICdisplav) node (name) {I2C};
+%Source
+\path (center)+(\SOdisplah,\SOdisplav) node (name) {Source};
+%Sink
+\path (center)+(\SIdisplah,\SIdisplav) node (name) {Sink};
+%1-PPS
+\path (center)+(\PPdisplah,\PPdisplav) node (name) {1-PPS};
+%Timecode
+\path (center)+(\TCdisplah,\TCdisplav) node (name) {Timecode};
+%Frequency
+\path (center)+(\FRdisplah,\FRdisplav) node (name) {Frequency};
+%MAC I/F
+\path (center)+(\IFdisplah,\IFdisplav) node (name) {MAC I/F};
+%Pipelined WB Slave I/F
+\path (center)+(\PIdisplah,\PIdisplav) node (name) {Pipelined WB Slave I/F};
+%Timming I/F
+\path (center)+(\TIdisplah,\TIdisplav) node (name) {Timming I/F};
+%Control/status pins
+\path (center)+(\CSdisplah,\CSdisplav) node (name) {Control/status pins};
+
+\begin{pgfonlayer}{background}
+    %Background
+    \path [fill=white!20] (\Backdisplah,\Backdisplav) rectangle ++(\Back);
+    %WR Node Device
+    \path [fill=blue!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BackOdisplah,\BackOdisplav) rectangle ++(\BackO);
+    %WR Node IP Core
+    \path [fill=blue!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BackTdisplah,\BackTdisplav) rectangle ++(\BackT);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
