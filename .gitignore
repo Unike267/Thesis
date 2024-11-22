@@ -7,6 +7,6 @@
 *.fls
 *.out
 *.toc
-*.pdf
+INITIAL_RESEARCH_DOC.pdf
 *.run.xml
 
