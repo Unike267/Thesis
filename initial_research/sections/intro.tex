@@ -31,6 +31,11 @@ The primary goal is to ensure that all connected devices are synchronized within
 
 \vspace{5 mm}
 
+\noindent In others words, White Rabbit \cite{WR:ohwr} is a fully deterministic Ethernet-based network for general purpose data transfer and synchronization. 
+It can synchronize over 1000 nodes with sub-ns accuracy over fiber lengths of up to 10 km and is commercially available.
+
+\vspace{5 mm}
+
 \noindent According to this ICALPECS 2011 poster (13th International Conference on Accelerator and Large Experimental Physics Control Systems) \cite{white-rabbit:poster}, titled \say{Reliability
 in a White Rabbit Network}, White Rabbit (WR) is a time-deterministic, low-latency Ethernet-based network which enables transparent, sub-ns accuracy timing distribution. 
 It is being developed to replace the General Machine Timing (GMT) system currently (2011) used at CERN and will become the foundation for the control system of the Facility for Antiproton and Ion Research (FAIR) at GSI.
@@ -191,6 +196,8 @@ This makes them ideal for applications requiring exceptional sensitivity and the
 
 \section{ASIC}
 
+The goal of this thesis is to perform this ASIC:
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=14cm]{figures/ASIC-Scheme.pdf}
@@ -209,4 +216,38 @@ See White Rabbit Wiki \cite{WR:wiki}.
     \includegraphics[width=15cm]{figures/WR_node.pdf}
     \caption{WR Node.}
     \label{fig:ASIC}
+\end{figure}
+
+\newpage
+
+\section{White Rabbit PTP Core}
+
+The WR PTP (Precision Time Protocol) Core (WRPC) \cite{WR-core:wiki} \cite{WR-core:manual}, figure \ref{fig:WRPC}, is an Ethernet MAC implementation capable of providing precise timing. 
+It can be used for sending and receiving regular Ethernet frames between user-defined HDL modules and a physical medium. 
+It also implements the White Rabbit protocol to provide sub-nanosecond time synchronization.
+
+\vspace{5 mm}
+
+\noindent The White Rabbit PTP Core can operate in one of the following modes:
+ 
+\begin{itemize}
+\item GrandMaster:
+    \begin{itemize}
+    \item[>] WR Master synchronized to an external 1-PPS and 10 MHz clock signal, propagates precise timing to other WR-compliant devices.
+    \end{itemize}
+\item Master:
+    \begin{itemize}
+    \item[>] WR Master with free-running oscillator, propagates precise timing to other WR-compliant devices.
+    \end{itemize}
+\item Slave:
+    \begin{itemize}
+    \item[>] synchronizes its internal oscillator to another WR Master device.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{figures/WRPC.pdf}
+    \caption{WR PTP (Precision Time Protocol) Core (WRPC).}
+    \label{fig:WRPC}
 \end{figure}
