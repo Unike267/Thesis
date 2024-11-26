@@ -1,0 +1,281 @@
+\documentclass[]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amsmath} % for \longrightarrow
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangles 
+%WRPC
+%Endpoint
+\def\EP{3,1.5}
+%Fabric redirector
+\def\FR{3,1.5}
+%mini-NIC
+\def\MN{3,1}
+%RAM
+\def\RAM{3,1.5}
+%microRV
+\def\uRV{3,2}
+%1-PPS
+\def\PPS{3,1}
+%SoftPLL
+\def\PLL{3,1}
+%Periph
+\def\PE{3,1}
+%UART
+\def\UART{3,1}
+%Whisbone crossbar
+\def\WC{(\WCdisplah,\WCdisplav) ellipse (2cm and 1cm)}
+
+%PHY
+\def\PHY{3.5,1.5}
+%Flash/EEPROM
+\def\ROM{3,1.5}
+%Tunable oscillators
+\def\TO{3,1.5}
+%SFP
+\def\SFP{2,1.5}
+
+%WRPC background
+\def\BackWR{15,11.5}
+
+%Background
+\def\Back{27,13.5}
+
+%Def displacements
+
+%Vertical gap
+\def\gapv{0}
+
+%WRPC
+%Endpoint
+\def\EPdisplah{6}
+\def\EPdisplav{9+\gapv}
+\def\EPh{1.5}
+\def\EPv{0.75}
+%Fabric redirector
+\def\FRdisplah{11}
+\def\FRdisplav{9+\gapv}
+\def\FRh{1.5}
+\def\FRv{0.75}
+%mini-NIC
+\def\MNdisplah{11}
+\def\MNdisplav{6.5+\gapv}
+\def\MNh{1.5}
+\def\MNv{0.5}
+%RAM
+\def\RAMdisplah{11}
+\def\RAMdisplav{3.5+\gapv}
+\def\RAMh{1.5}
+\def\RAMv{0.75}
+%microRV
+\def\uRVdisplah{7}
+\def\uRVdisplav{1+\gapv}
+\def\uRVh{1.5}
+\def\uRVv{1}
+%1-PPS
+\def\PPSdisplah{1}
+\def\PPSdisplav{1.5+\gapv}
+\def\PPSh{1.5}
+\def\PPSv{0.5}
+%SoftPLL
+\def\PLLdisplah{1}
+\def\PLLdisplav{3.5+\gapv}
+\def\PLLh{1.5}
+\def\PLLv{0.5}
+%Periph
+\def\PEdisplah{1}
+\def\PEdisplav{5.5+\gapv}
+\def\PEh{1.5}
+\def\PEv{0.5}
+%UART
+\def\UARTdisplah{1}
+\def\UARTdisplav{7.5+\gapv}
+\def\UARTh{1.5}
+\def\UARTv{0.5}
+%Whisbone crossbar
+\def\WCdisplah{7.5}
+\def\WCdisplav{5.75+\gapv}
+\def\WCh{0}
+\def\WCv{0.3+\gapv}
+
+%PHY
+\def\PHYdisplah{-4.5}
+\def\PHYdisplav{9+\gapv}
+\def\PHYh{1.75}
+\def\PHYv{0.75}
+%Flash/EEPROM
+\def\ROMdisplah{-4}
+\def\ROMdisplav{5.25+\gapv}
+\def\ROMh{1.5}
+\def\ROMv{0.75}
+%Tunable oscillators
+\def\TOdisplah{-4}
+\def\TOdisplav{3.25+\gapv}
+\def\TOh{1.5}
+\def\TOv{0.75}
+%SFP
+\def\SFPdisplah{-8}
+\def\SFPdisplav{9+\gapv}
+\def\SFPh{1}
+\def\SFPv{0.75}
+
+%TITLE 
+\def\titdisplah{3.5}
+\def\titdisplav{12+\gapv}
+%WRPC Backgroung
+\def\BackWRdisplah{0}
+\def\BackWRdisplav{0+\gapv}
+
+%Background
+\def\Backdisplah{-8.5}
+\def\Backdisplav{-0.5+\gapv}
+
+%TEXT:
+
+%Pipelined WB MAC I/F
+\def\PWMdisplah{17}
+\def\PWMdisplav{11}
+%Control Wishbone I/F
+\def\CWIdisplah{17}
+\def\CWIdisplav{7}
+
+\begin{tikzpicture}
+\node (center) {};
+\path (center)+(0,-5) node (name) {};
+%\path (center)+(\FMCdisplah,0) node (name) {ce};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE      %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\titdisplah,\titdisplav) node [fontscale=3](name) {WR PTP Core (WRPC)};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLOCKS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WRPC
+%\draw[fill=yellow!20,rounded corners] (\displah,\displav) rectangle ++(\);
+%\path (center)+(\displah+\h,\displav+\v) node [fontscale=2] (name) {};
+%Endpoint
+\draw[fill=yellow!20,rounded corners] (\EPdisplah,\EPdisplav) rectangle ++(\EP);
+\path (center)+(\EPdisplah+\EPh,\EPdisplav+\EPv) node [fontscale=2] (name) {Endpoint};
+%Fabric redirector
+\draw[fill=yellow!20,rounded corners] (\FRdisplah,\FRdisplav) rectangle ++(\FR);
+\path (center)+(\FRdisplah+\FRh,\FRdisplav+\FRv+\FRv/2.5) node [fontscale=2] (name) {Fabric};
+\path (center)+(\FRdisplah+\FRh,\FRdisplav+\FRv-\FRv/2.5) node [fontscale=2] (name) {Redirector};
+%mini-NIC
+\draw[fill=yellow!20,rounded corners] (\MNdisplah,\MNdisplav) rectangle ++(\MN);
+\path (center)+(\MNdisplah+\MNh,\MNdisplav+\MNv) node [fontscale=2] (name) {mini-NIC};
+%RAM
+\draw[fill=yellow!20,rounded corners] (\RAMdisplah,\RAMdisplav) rectangle ++(\RAM);
+\path (center)+(\RAMdisplah+\RAMh,\RAMdisplav+\RAMv) node [fontscale=2] (name) {RAM};
+%microRV
+\draw[fill=yellow!20,rounded corners] (\uRVdisplah,\uRVdisplav) rectangle ++(\uRV);
+\path (center)+(\uRVdisplah+\uRVh,\uRVdisplav+\uRVv) node [fontscale=2] (name) {\textmu RV};
+%1-PPS
+\draw[fill=yellow!20,rounded corners] (\PPSdisplah,\PPSdisplav) rectangle ++(\PPS);
+\path (center)+(\PPSdisplah+\PPSh,\PPSdisplav+\PPSv) node [fontscale=2] (name) {1-PPS};
+%SoftPLL
+\draw[fill=yellow!20,rounded corners] (\PLLdisplah,\PLLdisplav) rectangle ++(\PLL);
+\path (center)+(\PLLdisplah+\PLLh,\PLLdisplav+\PLLv) node [fontscale=2] (name) {SoftPLL};
+%Periph
+\draw[fill=yellow!20,rounded corners] (\PEdisplah,\PEdisplav) rectangle ++(\PE);
+\path (center)+(\PEdisplah+\PEh,\PEdisplav+\PEv) node [fontscale=2] (name) {Periph};
+%UART
+\draw[fill=yellow!20,rounded corners] (\UARTdisplah,\UARTdisplav) rectangle ++(\UART);
+\path (center)+(\UARTdisplah+\UARTh,\UARTdisplav+\UARTv) node [fontscale=2] (name) {UART};
+
+%Wishbone crossbar
+\filldraw[fill=gray!20] \WC;
+\path (center)+(\WCdisplah+\WCh,\WCdisplav+\WCv/2.5) node [fontscale=2] (name) {Wishbone};
+\path (center)+(\WCdisplah+\WCh,\WCdisplav-\WCv/2.5) node [fontscale=2] (name) {crossbar};
+
+%PHY
+\draw[fill=yellow!20,rounded corners] (\PHYdisplah,\PHYdisplav) rectangle ++(\PHY);
+\path (center)+(\PHYdisplah+\PHYh,\PHYdisplav+\PHYv+\PHYv/2.5) node [fontscale=2] (name) {PHY};
+\path (center)+(\PHYdisplah+\PHYh,\PHYdisplav+\PHYv-\PHYv/2.5) node [fontscale=2] (name) {(GTP,GTX,...)};
+%Flash/EEPROM
+\draw[fill=yellow!20,rounded corners] (\ROMdisplah,\ROMdisplav) rectangle ++(\ROM);
+\path (center)+(\ROMdisplah+\ROMh,\ROMdisplav+\ROMv+\ROMv/2.5) node [fontscale=2] (name) {Flash/};
+\path (center)+(\ROMdisplah+\ROMh,\ROMdisplav+\ROMv-\ROMv/2.5) node [fontscale=2] (name) {EEPROM};
+%Tunable oscillators
+\draw[fill=yellow!20,rounded corners] (\TOdisplah,\TOdisplav) rectangle ++(\TO);
+\path (center)+(\TOdisplah+\TOh,\TOdisplav+\TOv+\TOv/2.5) node [fontscale=2] (name) {Tunable};
+\path (center)+(\TOdisplah+\TOh,\TOdisplav+\TOv-\TOv/2.5) node [fontscale=2] (name) {Oscillators};
+%SFP
+\draw[fill=yellow!20,rounded corners] (\SFPdisplah,\SFPdisplav) rectangle ++(\SFP);
+\path (center)+(\SFPdisplah+\SFPh,\SFPdisplav+\SFPv) node [fontscale=2] (name) {SFP};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       ARROWS        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%EtherBone-WRI
+%\draw[blue,ultra thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh,\EBdisplav) to (\EBdisplah+\EBh,\WRIdisplav+2*\WRIv);
+%WRPC
+%Endpoint-Fabric redirector
+\draw[blue,ultra thick,arrows={-Stealth}] (\EPdisplah+\EPh*2,\EPdisplav+\EPv+\EPv/3) to (\FRdisplah,\EPdisplav+\EPv+\EPv/3);
+\draw[blue,ultra thick,arrows={Stealth-}] (\EPdisplah+\EPh*2,\EPdisplav+\EPv-\EPv/3) to (\FRdisplah,\EPdisplav+\EPv-\EPv/3);
+%Endpoint-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\EPdisplah+\EPh,\EPdisplav) to (\EPdisplah+\EPh,\WCdisplav+3.3*\WCv);
+%Fabric redirector-mini-NIC
+\draw[blue,ultra thick,arrows={-Stealth}] (\FRdisplah+\FRh+\FRh/3,\FRdisplav) to (\FRdisplah+\FRh+\FRh/3,\MNdisplav+2*\MNv);
+\draw[blue,ultra thick,arrows={Stealth-}] (\FRdisplah+\FRh-\FRh/3,\FRdisplav) to (\FRdisplah+\FRh-\FRh/3,\MNdisplav+2*\MNv);
+%Fabric redirector-out
+\draw[blue,ultra thick,arrows={-Stealth}] (\FRdisplah+\FRh*2,\EPdisplav+\EPv+\EPv/3) to (\FRdisplah+\FRh*4,\EPdisplav+\EPv+\EPv/3);
+\draw[blue,ultra thick,arrows={Stealth-}] (\FRdisplah+\FRh*2,\EPdisplav+\EPv-\EPv/3) to (\FRdisplah+\FRh*4,\EPdisplav+\EPv-\EPv/3);
+%mini-NIC-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\MNdisplah,\MNdisplav+\MNv) to [bend right]  (\WCdisplah+3*\WCv,\WCdisplav+3*\WCv);
+%RAM-microRV
+\draw[gray,ultra thick,arrows={Stealth-}] (\RAMdisplah+\RAMh,\RAMdisplav) to (\RAMdisplah+\RAMh,\uRVdisplav+\uRVv);
+\draw[gray,ultra thick,arrows={-Stealth}](\RAMdisplah+\RAMh,\uRVdisplav+\uRVv) to (\uRVdisplah+\uRVh*2,\uRVdisplav+\uRVv);
+%RAM-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\RAMdisplah,\RAMdisplav+\RAMv) to [bend left]  (\WCdisplah+3*\WCv,\WCdisplav-3*\WCv);
+%microRV-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\uRVdisplah+\uRVh,\uRVdisplav+2*\uRVv) to [bend left]  (\WCdisplah,\WCdisplav-3.3*\WCv);
+%1-PPS-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\PPSdisplah+2*\PPSh,\PPSdisplav+\PPSv) to  [bend right] (\WCdisplah-3*\WCv,\WCdisplav-3*\WCv);
+%SoftPLL-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\PLLdisplah+2*\PLLh,\PLLdisplav+\PLLv) to  [bend right] (\WCdisplah-6*\WCv,\WCdisplav-1.5*\WCv);
+%Periph-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\PEdisplah+2*\PEh,\PEdisplav+\PEv) to  [bend left] (\WCdisplah-6*\WCv,\WCdisplav+1.5*\WCv);
+%UART-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\UARTdisplah+2*\UARTh,\UARTdisplav+\UARTv) to  [bend left] (\WCdisplah-3*\WCv,\WCdisplav+3*\WCv);
+%PHY-Endpoint
+\draw[gray,ultra thick,arrows={-Stealth}] (\PHYdisplah+\PHYh*2,\EPdisplav+\EPv+\EPv/3) to (\EPdisplah,\EPdisplav+\EPv+\EPv/3);
+\draw[gray,ultra thick,arrows={Stealth-}] (\PHYdisplah+\PHYh*2,\EPdisplav+\EPv-\EPv/3) to (\EPdisplah,\EPdisplav+\EPv-\EPv/3);
+%Flash/EEPROM-Periph
+\draw[gray,ultra thick,arrows={Stealth-Stealth}] (\ROMdisplah+\ROMh*2,\ROMdisplav+\ROMv) to (\PEdisplah,\ROMdisplav+\ROMv);
+%Tunable oscillators-SoftPLL
+\draw[gray,ultra thick,arrows={Stealth-Stealth}] (\TOdisplah+\TOh*2,\TOdisplav+\TOv) to (\PLLdisplah,\TOdisplav+\TOv);
+%SFP
+\draw[gray,ultra thick,arrows={-Stealth}] (\SFPdisplah+\SFPh*2,\SFPdisplav+\SFPv+\SFPv/3) to (\PHYdisplah,\SFPdisplav+\SFPv+\SFPv/3);
+\draw[gray,ultra thick,arrows={Stealth-}] (\SFPdisplah+\SFPh*2,\SFPdisplav+\SFPv-\SFPv/3) to (\PHYdisplah,\SFPdisplav+\SFPv-\SFPv/3);
+%Control Wishbone-Wishbone crossbar
+\draw[black,ultra thick,arrows={Stealth-Stealth}] (\WCdisplah+6.6*\WCv,\WCdisplav) to  (\FRdisplah+\FRh*4,\WCdisplav);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TEXT        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WRPC
+%
+\path (center)+(\PWMdisplah,\PWMdisplav) node (name) {Pipelined WB};
+\path (center)+(\PWMdisplah,\PWMdisplav-0.5) node (name) {MAC I/F};
+\path (center)+(\CWIdisplah,\CWIdisplav) node (name) {Control};
+\path (center)+(\CWIdisplah,\CWIdisplav-0.5) node (name) {Wishbone I/F};
+
+\begin{pgfonlayer}{background}
+    %Background
+    \path [fill=white!20] (\Backdisplah,\Backdisplav) rectangle ++(\Back);
+    %WRPC
+    \path [fill=blue!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BackWRdisplah,\BackWRdisplav) rectangle ++(\BackWR);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
