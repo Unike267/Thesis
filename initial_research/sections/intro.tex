@@ -222,7 +222,7 @@ See White Rabbit Wiki \cite{WR:wiki}.
 
 \section{White Rabbit PTP Core}
 
-The WR PTP (Precision Time Protocol) Core (WRPC) \cite{WR-core:wiki} \cite{WR-core:manual}, figure \ref{fig:WRPC}, is an Ethernet MAC implementation capable of providing precise timing. 
+The WR PTP (Precision Time Protocol) Core (WRPC) \cite{WR-core:wiki} \cite{WR-core:manual} \cite{WRPC:ohwr}, figure \ref{fig:WRPC}, is an Ethernet MAC implementation capable of providing precise timing. 
 It can be used for sending and receiving regular Ethernet frames between user-defined HDL modules and a physical medium. 
 It also implements the White Rabbit protocol to provide sub-nanosecond time synchronization.
 
@@ -252,8 +252,32 @@ It also implements the White Rabbit protocol to provide sub-nanosecond time sync
     \label{fig:WRPC}
 \end{figure}
 
+\noindent You can find the HDL description of the WRPC internal components in \cite{WRPC:modules}.
+
+\newpage
+
 \subsection{\textmu RV}
 
 The \textmu RV \cite{urv-core:ohwr} \cite{urv-core:wiki} \cite{Włostowski:2213516} (Micro RISC-V) core is a small-sized implementation of a 32-bit RISC-V core, targeted specifically at FPGAs developed by CERN. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{figures/urv_logo.png}
+    \caption{\textmu RV logo.}
+    \label{fig:urv}
+\end{figure}
 
+\begin{itemize}
+\item Features:
+    \begin{itemize}
+    \item[>] Supports RV32IM instruction set. 
+Division and multiply high instructions are optional and can be emulated to lower the FPGA footprint.
+    \item[>] Target: FPGAs.
+    \item[>] 4-stage pipeline (FDXW).
+    \item[>] All instructions except taken branches/division in one clock cycle.
+    \item[>] Code execution from internal memory block.
+    \item[>] Wishbone bus (version B.4) for peripheral access.
+    \item[>] Simple interrupt handling.
+    \item[>] Verilog RTL code.
+    \end{itemize}
+\end{itemize}
