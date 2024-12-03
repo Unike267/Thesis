@@ -95,7 +95,158 @@ High reliability is an important issue in WR’s design, since unavailability of
 
 \subsubsection{EtherBone Core}
 
-Etherbone \cite{gl:etherbone-core} is an FPGA-core that connects Ethernet to internal on-chip wishbone buses permitting any core to talk to any other across Ethernet.
+Etherbone \cite{etherbone-core:ohwr} \cite{etherbone-core:spec} is an FPGA-core that connects Ethernet to internal on-chip wishbone buses permitting any core to talk to any other across Ethernet.
+
+\vspace{5 mm}
+
+\noindent Programmable hardware is increasingly deployed in large, physically distributed control systems. 
+Hard real-time systems especially benefit from the determinism and low latency of purpose-built hardware. 
+As reconfigurable hardware components replace traditional software-based systems, those hardware components must often communicate directly, over longer distances. 
+While traditional protocols like CORBA and SOAP provide an excellent abstraction for software-to-software communication, they are a poor fit for hardware-to-hardware communication. 
+Hardware components typically transfer information in read/write bus cycles as opposed to the procedure calling interfaces seen in software.
+
+\vspace{5 mm}
+
+\noindent According to the wiki \cite{etherbone-core:wiki} the Etherbone protocol takes an existing bus standard (Wishbone) and extends this bus to run over the network. 
+A concrete bus standard was chosen, because different bus protocols often differ enough that conversion reduces fidelity. 
+Wishbone was chosen because it is an open standard, simple, and pipelining. 
+The underlying transport protocol is left open, as Etherbone's requirements are easily met. 
+This specification defines Etherbone for UDP and TCP.
+
+\paragraph{Architecture}
+
+Etherbone (EB) connects two Wishbone (WB) buses together as shown in the figure below. 
+The WB Intercon is a local bus, for example a crossbar interconnect. 
+When a WB master wishes to write to a remote slave, it writes to the EB bridge, which is a local WB slave. 
+The bridge, acting as an EB master, translates the request into an EB frame and routes it to the receiving EB slave. 
+That slave decodes the request and executes the write over Wishbone. 
+Finally, the WB interconnect routes the write to the correct slave.
+
+\vspace{5 mm}
+
+\noindent Either or both of the devices may be replaced by software, as shown in the figure below. 
+In this scenario, the operating system buffers and sends Etherbone frames as requested by the Etherbone software library.
+Client applications may use this library for remote access to any slave attached to an Etherbone equipped wishbone bus. 
+This facilitates such tasks as debugging, firmware updates, and monitoring from a dekstop system. 
+Applications may also attach devices to a virtual wishbone bus, perhaps to capture bus cycles or trigger an alarm. 
+These virtual devices may be mapped into the Wishbone bus of other Etherbone nodes, hardware or software.
+
+\paragraph{Addressing}
+
+Slaves on a Wishbone bus have a mapped address range. Masters read and write to an address on the local bus and the Intercon routes the operation to the matching slave device. 
+However, with the introduction of Etherbone, there are now multiple reachable Wishbone buses in the facility-wide system. 
+To select the destination slave, additional address information is required.
+
+\vspace{5 mm}
+
+\noindent When using the software interface, an application acquires a handle object for the remote bus. Reads and writes are then performed via the handle object, requiring only the WB bus address per operation. 
+To acquire the handle object, the application supplies the hostname and port of the remote WB bus.
+
+\vspace{5 mm}
+
+\noindent For a hardware implementation, the requests come from a local WB master, which can only provide a WB bus address. 
+To determine the missing address information, an EB bridge must infer the destination WB bus based only on the local WB address requested. 
+To achieve this, the EB bridge establishes a configurable mapping from local WB addresses to destination hostname:ports and target WB addresses.
+
+\vspace{5 mm}
+
+\noindent For example, consider an EB bridge occupying address range \say{0x1000-0x3000} on the local bus. 
+There is a remote WB bus available on the the host example.com:3434. 
+We would like to access the address range \say{0x100-0x200} on that bus. Thus, we configure our EB bridge to map this range as \say{0x2000-0x2100} on the local bus. 
+Now, when a WB write on our local bus to address \say{0x2050} is performed, the bridge transforms this into an EB write destined for example.com:3434 at address \say{0x150}.
+
+\paragraph{Pipelining}
+Unlike a local WB bus, where devices answer in a few clock cycles, a remote bus accessed via EB has a much high latency. 
+For a 100MHz bus and a distance of only 20km the difference is 10ns to 100us. 
+For Internet-scale distances, the latency can easily rise to 100ms.
+Therefore, an application which only issues a new read/write operation when the previous operation completes will perform $10^4$ to $10^7$ times
+slower over EB than direct WB.
+
+\vspace{5 mm}
+
+\noindent  EB supports pipelining to overcome this significant performance bottleneck. 
+Instead of issuing a single operation at a time, an application/device can issue new operations without waiting for the previous operation to complete. 
+The results of the operations will arrive in the same order they were issued. 
+Whenever new operations do not dependend on still incomplete operations, this can almost entirely mask the performance lost to remote access.
+
+\vspace{5 mm}
+
+\noindent As an example, considering two application using EB. 
+The first application is a firmware writing tool that needs to write the firmware and confirm the firmware was written correctly. 
+This problem can be readily pipelined; the operations have an order requirement (confirmation happens after write), but the choice of operation to issue
+does not depend on previous results. 
+The firmware writer can issue a sequence of \say{WWWW...RRRR...} operations in the pipeline without waiting.
+Alternatively, it might also use the sequence \say{WRWRWR...} to confirm each word immediately after writing it. 
+In both cases, the application can issue all of the operations without waiting. 
+This would not be possible if the application were to iterate a remote function. 
+Suppose the application wants to compute \say{f(f(f(...f(x)...)))} using a remote WB slave to calculate function f. 
+Here, the aplication writes x to the remote slave and reads back \say{y = f(x)}. 
+Then the application writes y to the remote slave and reads back \say{z = f(y)}.
+The write pattern \say{WRWRWR...} is the same as the firmware loader, but here we can only pipeline a single write-read operation pair together. 
+Until we have received the result f(x), we cannot issue f(y).
+
+\vspace{5 mm}
+
+\noindent In Wishbone, several operations can be grouped into a single bus cycle.
+A particularly bad situation that can occur is when dependencies appear within a WB cycle. 
+Generally, WB cycles acquire the device for use until cycle completion. 
+On a local bus, any access pattern will work, as the operations will complete quickly and release the cycle line. 
+However, when this happens with EB-sized latencies, a cycle might tie up a device for potentially unacceptable duration. 
+Consider for example a WB cycle that reads from one address and writes the result to another address.
+Locally, there is no problem; the entire WB cycles executes in a few nanoseconds. 
+However, when that same access pattern runs over the network, the slave device needs to wait for the read result to travel to the master and the final write to travel back. 
+A very bad design.
+
+\vspace{5 mm}
+
+\noindent Dealing with data dependencies within a cycle is a major complication addressed in the different implementation options described later.
+
+\paragraph{Config Space}
+
+In addition to remote bus access, Etherbone also provides a configuration space. 
+This config space is used to specify transmission parameters, recover bus error status codes, and match read results to the requests.
+
+\vspace{5 mm}
+
+\noindent The config space is an complementary 16-bit wide address space attached to every EB slave. 
+EB requests can read/write to this configuration space in addition the the normal WB bus. 
+The config space is divided up into two regions: the register space and the implementation space. 
+All addresses in the register space correspond to EB control registers, specified in this document. 
+The register space spans addresses \say{0x0-0x7FFF}. 
+The implementation space is guaranteed to be free for whatever use a hardware/software implementation chooses. 
+The implementation space spans \say{0x8000-0xFFFF}.
+
+\vspace{5 mm}
+
+\noindent Two important registers in the address space include the error status register, which reports WB error status codes, and the WB device map
+pointer, which provides information about the slaves attached to a remote bus. 
+The implementation space is typically used by an EB master to receive the data which it read. 
+Reads to an EB device trigger a write back to the source EB device. 
+Those writebacks are often sent to the implementation space where they can be handled by the EB core/code and invisible to the WB bus.
+
+\paragraph{Bus Widths}
+
+In Wishbone, a bus may have a port width that is \say{8/16/32/64} bits wide.
+Thus, a master in one WB bus might write 32-bits at a time, while a slave in another WB bus expects 16-bits at a time. 
+Etherbone makes no attempt to convert between differing port widths, because converting a 32-bit write into two 16-bit writes might change semantics.
+
+\vspace{5 mm}
+
+\noindent However, Etherbone does negotiate which port widths are acceptable to both devices. 
+This mostly affects software, which can meaningfully support access with different port widths. 
+Hardware implementations will typically advertise and accept only one width.
+
+\vspace{5 mm}
+
+\noindent Address spaces in WB are conceptually infinite, but in practice are constrained to a fixed width. 
+Address width conversion, as oppposed to port width conversion, is relatively straight-forward. 
+Address \say{0x0400} is that same as \say{0x00000400}. 
+If a 32-bit device is accessed by a 16-bit device, the 16-bit device can only see the low 16-bits of the larger device's address space.
+
+\vspace{5 mm}
+
+\noindent Address width is negotiated by Etherbone simply to determine the amount of space to reserve for message exchanges. 
+A hardware implementation is free to only advertise address widths whose message alignment is convenient to them.
 
 \subsubsection{Chronos Project}
 
@@ -215,7 +366,7 @@ See White Rabbit Wiki \cite{WR:wiki}.
     \centering
     \includegraphics[width=15cm]{figures/WR_node.pdf}
     \caption{WR Node.}
-    \label{fig:ASIC}
+    \label{fig:WR-NODE}
 \end{figure}
 
 \newpage
