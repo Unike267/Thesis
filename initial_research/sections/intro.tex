@@ -115,21 +115,35 @@ This specification defines Etherbone for UDP and TCP.
 
 \paragraph{Architecture}
 
-Etherbone (EB) connects two Wishbone (WB) buses together as shown in the figure below. 
+Etherbone (EB) connects two Wishbone (WB) buses together as shown in figure \ref{fig:EtherBone-1}. 
 The WB Intercon is a local bus, for example a crossbar interconnect. 
 When a WB master wishes to write to a remote slave, it writes to the EB bridge, which is a local WB slave. 
 The bridge, acting as an EB master, translates the request into an EB frame and routes it to the receiving EB slave. 
 That slave decodes the request and executes the write over Wishbone. 
 Finally, the WB interconnect routes the write to the correct slave.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{figures/EtherBone_1.pdf}
+    \caption{EtherBone System}
+    \label{fig:EtherBone-1}
+\end{figure}
+
 \vspace{5 mm}
 
-\noindent Either or both of the devices may be replaced by software, as shown in the figure below. 
+\noindent Either or both of the devices may be replaced by software, as shown in figure \ref{fig:EtherBone-2}. 
 In this scenario, the operating system buffers and sends Etherbone frames as requested by the Etherbone software library.
 Client applications may use this library for remote access to any slave attached to an Etherbone equipped wishbone bus. 
 This facilitates such tasks as debugging, firmware updates, and monitoring from a dekstop system. 
 Applications may also attach devices to a virtual wishbone bus, perhaps to capture bus cycles or trigger an alarm. 
 These virtual devices may be mapped into the Wishbone bus of other Etherbone nodes, hardware or software.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{figures/EtherBone_2.pdf}
+    \caption{EtherBone Software}
+    \label{fig:EtherBone-2}
+\end{figure}
 
 \paragraph{Addressing}
 
