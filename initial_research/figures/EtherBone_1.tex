@@ -1,0 +1,234 @@
+\documentclass[]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amsmath} % for \longrightarrow
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangles 
+%MASTER
+\def\WMU{3,1}
+\def\WMD{3,1}
+\def\WMT{3,1}
+\def\WMI{1,4}
+\def\EBM{2.5,2}
+\def\WSM{3,1}
+\def\PHM{2,2}
+
+\def\BCKM{9.5,5}
+
+%SLAVE
+\def\WSU{3,1}
+\def\WSD{3,1}
+\def\WST{3,1}
+\def\WSI{1,4}
+\def\EBS{2.5,2}
+\def\WMS{3,1}
+\def\PHS{2,2}
+
+\def\BCKS{9.5,5}
+
+%Background
+\def\BCK{24,6.5}
+
+%Def displacements
+%Horizontal gap (for slave)
+\def\gaph{3.5}
+%Vertical gap
+\def\gapv{0}
+%MASTER
+%WB MASTER 1 (UNO)
+\def\WMUdisplah{0.5}
+\def\WMUdisplav{3.4+\gapv}
+\def\WMUh{1.5}
+\def\WMUv{0.5}
+%WB MASTER 2 (DOS)
+\def\WMDdisplah{0.5}
+\def\WMDdisplav{2+\gapv}
+\def\WMDh{1.5}
+\def\WMDv{0.5}
+%WB MASTER 3 (TRES)
+\def\WMTdisplah{0.5}
+\def\WMTdisplav{0.5+\gapv}
+\def\WMTh{1.5}
+\def\WMTv{0.5}
+%WB MASTER INTERCON
+\def\WMIdisplah{4}
+\def\WMIdisplav{0.5+\gapv}
+\def\WMIh{0.5}
+\def\WMIv{2}
+%EB MASTER WB SLAVE
+\def\EBMdisplah{5.5}
+\def\EBMdisplav{2.5+\gapv}
+\def\EBMh{1.25}
+\def\EBMv{1}
+%WB MASTER SLAVE 2
+\def\WMSdisplah{5.5}
+\def\WMSdisplav{0.5+\gapv}
+\def\WMSh{1.5}
+\def\WMSv{0.5}
+%WB MASTER PHY
+\def\PHMdisplah{8.5}
+\def\PHMdisplav{2.5+\gapv}
+\def\PHMh{1}
+\def\PHMv{1}
+%WB MASTER BACKGROUND
+\def\BCKMdisplah{0}
+\def\BCKMdisplav{0+\gapv}
+
+%SLAVE
+%WB SLAVE 1 (UNO)
+\def\WSUdisplah{16+\gaph}
+\def\WSUdisplav{3.4+\gapv}
+\def\WSUh{1.5}
+\def\WSUv{0.5}
+%WB SLAVE 2 (DOS)
+\def\WSDdisplah{16+\gaph}
+\def\WSDdisplav{2+\gapv}
+\def\WSDh{1.5}
+\def\WSDv{0.5}
+%WB SLAVE 3 (TRES)
+\def\WSTdisplah{16+\gaph}
+\def\WSTdisplav{0.5+\gapv}
+\def\WSTh{1.5}
+\def\WSTv{0.5}
+%WB SLAVE INTERCON
+\def\WSIdisplah{14.5+\gaph}
+\def\WSIdisplav{0.5+\gapv}
+\def\WSIh{0.5}
+\def\WSIv{2}
+%EB SLAVE WB MASTER
+\def\EBSdisplah{11.5+\gaph}
+\def\EBSdisplav{2.5+\gapv}
+\def\EBSh{1.25}
+\def\EBSv{1}
+%WB SLAVE MASTER 2
+\def\WSMdisplah{11+\gaph}
+\def\WSMdisplav{0.5+\gapv}
+\def\WSMh{1.5}
+\def\WSMv{0.5}
+%WB SLAVE PHY
+\def\PHSdisplah{9+\gaph}
+\def\PHSdisplav{2.5+\gapv}
+\def\PHSh{1}
+\def\PHSv{1}
+%WB SLAVE BACKGROUND
+\def\BCKSdisplah{10+\gaph}
+\def\BCKSdisplav{0+\gapv}
+
+%TITLE MASTER
+\def\TMdisplah{4.75}
+\def\TMdisplav{5.5+\gapv}
+%TITLE SLAVE
+\def\TSdisplah{10+\gaph+4.75}
+\def\TSdisplav{5.5+\gapv}
+
+%Background
+\def\BCKdisplah{-0.5}
+\def\BCKdisplav{-0.5+\gapv}
+
+%TEXT:
+
+%EB REQUEST
+\def\ERdisplah{11.5}
+\def\ERdisplav{5+\gapv}
+
+
+\begin{tikzpicture}
+\node (center) {};
+\path (center)+(0,-5) node (name) {};
+%\path (center)+(\FMCdisplah,0) node (name) {ce};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE      %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\TMdisplah,\TMdisplav) node [fontscale=3](name) {EB Master Node};
+\path (center)+(\TSdisplah,\TSdisplav) node [fontscale=3](name) {EB Slave Node};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLOCKS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%TEMPLATE
+%\draw[fill=green!20,rounded corners] (\displah,\displav) rectangle ++(\);
+%\path (center)+(\displah+\h,\displav+\v) node [fontscale=2] (name) {};
+
+%MASTER
+%WB MASTER 1 (UNO)
+\draw[fill=green!20,rounded corners] (\WMUdisplah,\WMUdisplav) rectangle ++(\WMU);
+\path (center)+(\WMUdisplah+\WMUh,\WMUdisplav+\WMUv) node [fontscale=1.5] (name) {WB Master 1};
+%WB MASTER 2 (DOS)
+\draw[fill=green!20,rounded corners] (\WMDdisplah,\WMDdisplav) rectangle ++(\WMD);
+\path (center)+(\WMDdisplah+\WMDh,\WMDdisplav+\WMDv) node [fontscale=1.5] (name) {WB Master 2};
+%WB MASTER 3 (TRES)
+\draw[fill=green!20,rounded corners] (\WMTdisplah,\WMTdisplav) rectangle ++(\WMT);
+\path (center)+(\WMTdisplah+\WMTh,\WMTdisplav+\WMTv) node [fontscale=1.5] (name) {WB Master 3};
+%WB MASTER INTERCON
+\draw[fill=green!20,rounded corners] (\WMIdisplah,\WMIdisplav) rectangle ++(\WMI);
+\path (center)+(\WMIdisplah+\WMIh,\WMIdisplav+\WMIv) node [fontscale=1.5,rotate=270] (name) {WB Intercon};
+%EB MASTER WB SLAVE
+\draw[fill=yellow!20,rounded corners] (\EBMdisplah,\EBMdisplav) rectangle ++(\EBM);
+\path (center)+(\EBMdisplah+\EBMh,\EBMdisplav+\EBMv+\EBMv/3) node [fontscale=1.5] (name) {EB Master};
+\path (center)+(\EBMdisplah+\EBMh,\EBMdisplav+\EBMv-\EBMv/3) node [fontscale=1.5] (name) {WB Slave};
+%WB MASTER SLAVE 2
+\draw[fill=green!20,rounded corners] (\WMSdisplah,\WMSdisplav) rectangle ++(\WMS);
+\path (center)+(\WMSdisplah+\WMSh,\WMSdisplav+\WMSv) node [fontscale=1.5] (name) {WB Slave 2};
+%WB MASTER PHY
+\draw[fill=green!60,rounded corners] (\PHMdisplah,\PHMdisplav) rectangle ++(\PHM);
+\path (center)+(\PHMdisplah+\PHMh,\PHMdisplav+\PHMv) node [fontscale=1.5] (name) {PHY};
+%
+%SLAVE
+%WB SLAVE 1 (UNO)
+\draw[fill=green!20,rounded corners] (\WSUdisplah,\WSUdisplav) rectangle ++(\WSU);
+\path (center)+(\WSUdisplah+\WSUh,\WSUdisplav+\WSUv) node [fontscale=1.5] (name) {WB Slave 1};
+%WB SLAVE 2 (DOS)
+\draw[fill=green!20,rounded corners] (\WSDdisplah,\WSDdisplav) rectangle ++(\WSD);
+\path (center)+(\WSDdisplah+\WSDh,\WSDdisplav+\WSDv) node [fontscale=1.5] (name) {WB Slave 2};
+%WB SLAVE 3 (TRES)
+\draw[fill=green!20,rounded corners] (\WSTdisplah,\WSTdisplav) rectangle ++(\WST);
+\path (center)+(\WSTdisplah+\WSTh,\WSTdisplav+\WSTv) node [fontscale=1.5] (name) {WB Slave 3};
+%WB SLAVE INTERCON
+\draw[fill=green!20,rounded corners] (\WSIdisplah,\WSIdisplav) rectangle ++(\WSI);
+\path (center)+(\WSIdisplah+\WSIh,\WSIdisplav+\WSIv) node [fontscale=1.5,rotate=270] (name) {WB Intercon};
+%EB SLAVE WB MASTER
+\draw[fill=yellow!20,rounded corners] (\EBSdisplah,\EBSdisplav) rectangle ++(\EBS);
+\path (center)+(\EBSdisplah+\EBSh,\EBSdisplav+\EBSv+\EBSv/3) node [fontscale=1.5] (name) {EB Slave};
+\path (center)+(\EBSdisplah+\EBSh,\EBSdisplav+\EBSv-\EBSv/3) node [fontscale=1.5] (name) {WB Master};
+%WB SLAVE MASTER 2
+\draw[fill=green!20,rounded corners] (\WSMdisplah,\WSMdisplav) rectangle ++(\WSM);
+\path (center)+(\WSMdisplah+\WSMh,\WSMdisplav+\WSMv) node [fontscale=1.5] (name) {WB Master 2};
+%WB SLAVE PHY
+\draw[fill=green!60,rounded corners] (\PHSdisplah,\PHSdisplav) rectangle ++(\PHS);
+\path (center)+(\PHSdisplah+\PHSh,\PHSdisplav+\PHSv) node [fontscale=1.5] (name) {PHY};
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%       ARROWS        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%TEMPLATE
+%\draw[blue,ultra thick,arrows={Stealth-Stealth}] (\displah+\h,\displav) to (\displah+\h,\displav+2*\v);
+%PHY-PHY
+\draw[black,ultra thick,arrows={-Stealth}] (\PHMdisplah+\PHMh*2,\PHMdisplav+\PHMv) to (\PHSdisplah,\PHMdisplav+\PHMv);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TEXT        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\path (center)+(\ERdisplah,\ERdisplav) node (name) {EB Request};
+
+\begin{pgfonlayer}{background}
+%    %Background
+    \path [fill=white!20] (\BCKdisplah,\BCKdisplav) rectangle ++(\BCK);
+%    %WB MASTER BACKGROUND
+    \path [fill=green!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BCKMdisplah,\BCKMdisplav) rectangle ++(\BCKM);
+%    %WB SLAVE BACKGROUND
+    \path [fill=green!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BCKSdisplah,\BCKSdisplav) rectangle ++(\BCKS);
+
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
