@@ -1,0 +1,214 @@
+\documentclass[]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amsmath} % for \longrightarrow
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangles 
+%MASTER
+\def\WBD{4,1}
+\def\FLD{4,1}
+\def\DEM{4,1}
+\def\ELM{1.25,4}
+\def\HOM{1.25,4}
+\def\PHM{2,2}
+
+\def\BCKM{9.5,5}
+
+%SLAVE
+\def\LOA{4,1}
+\def\WAL{4,1}
+\def\SLG{4,1}
+\def\ELS{1.25,4}
+\def\HOS{1.25,4}
+\def\PHS{2,2}
+
+\def\BCKS{9.5,5}
+
+%Background
+\def\BCK{24,6.5}
+
+%Def displacements
+%Horizontal gap (for slave)
+\def\gaph{3.5}
+%Vertical gap
+\def\gapv{0}
+%MASTER
+%WB Debug App
+\def\WBDdisplah{0.5}
+\def\WBDdisplav{3.4+\gapv}
+\def\WBDh{2}
+\def\WBDv{0.5}
+%Firmware Loader
+\def\FLDdisplah{0.5}
+\def\FLDdisplav{2+\gapv}
+\def\FLDh{2}
+\def\FLDv{0.5}
+%Device Monitor
+\def\DEMdisplah{0.5}
+\def\DEMdisplav{0.5+\gapv}
+\def\DEMh{2}
+\def\DEMv{0.5}
+%EB Library Master
+\def\ELMdisplah{5}
+\def\ELMdisplav{0.5+\gapv}
+\def\ELMh{0.625}
+\def\ELMv{2}
+%HOST OS Master
+\def\HOMdisplah{6.75}
+\def\HOMdisplav{0.5+\gapv}
+\def\HOMh{0.625}
+\def\HOMv{2}
+%WB MASTER PHY
+\def\PHMdisplah{8.5}
+\def\PHMdisplav{2.5+\gapv}
+\def\PHMh{1}
+\def\PHMv{1}
+%WB MASTER BACKGROUND
+\def\BCKMdisplah{0}
+\def\BCKMdisplav{0+\gapv}
+
+%SLAVE
+%Logic Analyzer
+\def\LOAdisplah{15+\gaph}
+\def\LOAdisplav{3.4+\gapv}
+\def\LOAh{2}
+\def\LOAv{0.5}
+%Warning Alarm
+\def\WALdisplah{15+\gaph}
+\def\WALdisplav{2+\gapv}
+\def\WALh{2}
+\def\WALv{0.5}
+%Sensor logger
+\def\SLGdisplah{15+\gaph}
+\def\SLGdisplav{0.5+\gapv}
+\def\SLGh{2}
+\def\SLGv{0.5}
+%EB Library Slave
+\def\ELSdisplah{13.25+\gaph}
+\def\ELSdisplav{0.5+\gapv}
+\def\ELSh{0.625}
+\def\ELSv{2}
+%HOST OS Slave
+\def\HOSdisplah{11.5+\gaph}
+\def\HOSdisplav{0.5+\gapv}
+\def\HOSh{0.625}
+\def\HOSv{2}
+%WB SLAVE PHY
+\def\PHSdisplah{9+\gaph}
+\def\PHSdisplav{2.5+\gapv}
+\def\PHSh{1}
+\def\PHSv{1}
+%WB SLAVE BACKGROUND
+\def\BCKSdisplah{10+\gaph}
+\def\BCKSdisplav{0+\gapv}
+
+%TITLE MASTER
+\def\TMdisplah{4.75}
+\def\TMdisplav{5.5+\gapv}
+%TITLE SLAVE
+\def\TSdisplah{10+\gaph+4.75}
+\def\TSdisplav{5.5+\gapv}
+
+%Background
+\def\BCKdisplah{-0.5}
+\def\BCKdisplav{-0.5+\gapv}
+
+%TEXT:
+
+%EB REQUEST
+\def\ERdisplah{11.5}
+\def\ERdisplav{5+\gapv}
+
+
+\begin{tikzpicture}
+\node (center) {};
+\path (center)+(0,-5) node (name) {};
+%\path (center)+(\FMCdisplah,0) node (name) {ce};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE      %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\TMdisplah,\TMdisplav) node [fontscale=3](name) {EB Master Node};
+\path (center)+(\TSdisplah,\TSdisplav) node [fontscale=3](name) {EB Slave Node};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLOCKS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%TEMPLATE
+%\draw[fill=green!20,rounded corners] (\displah,\displav) rectangle ++(\);
+%\path (center)+(\displah+\h,\displav+\v) node [fontscale=2] (name) {};
+
+%MASTER
+%WB Debug App
+\draw[fill=green!20,rounded corners] (\WBDdisplah,\WBDdisplav) rectangle ++(\WBD);
+\path (center)+(\WBDdisplah+\WBDh,\WBDdisplav+\WBDv) node [fontscale=1.5] (name) {WB Debug App};
+%Firmware Loader
+\draw[fill=green!20,rounded corners] (\FLDdisplah,\FLDdisplav) rectangle ++(\FLD);
+\path (center)+(\FLDdisplah+\FLDh,\FLDdisplav+\FLDv) node [fontscale=1.5] (name) {Firmware Loader};
+%Device Monitor
+\draw[fill=green!20,rounded corners] (\DEMdisplah,\DEMdisplav) rectangle ++(\DEM);
+\path (center)+(\DEMdisplah+\DEMh,\DEMdisplav+\DEMv) node [fontscale=1.5] (name) {Device Monitor};
+%EB Library Master
+\draw[fill=green!20,rounded corners] (\ELMdisplah,\ELMdisplav) rectangle ++(\ELM);
+\path (center)+(\ELMdisplah+\ELMh,\ELMdisplav+\ELMv) node [fontscale=1.5,rotate=270] (name) {EB Library};
+%HOST OS Master
+\draw[fill=green!20,rounded corners] (\HOMdisplah,\HOMdisplav) rectangle ++(\HOM);
+\path (center)+(\HOMdisplah+\HOMh,\HOMdisplav+\HOMv) node [fontscale=1.5,rotate=270] (name) {Host OS};
+%WB MASTER PHY
+\draw[fill=green!60,rounded corners] (\PHMdisplah,\PHMdisplav) rectangle ++(\PHM);
+\path (center)+(\PHMdisplah+\PHMh,\PHMdisplav+\PHMv) node [fontscale=1.5] (name) {PHY};
+%
+%SLAVE
+%Logic Analyzer
+\draw[fill=green!20,rounded corners] (\LOAdisplah,\LOAdisplav) rectangle ++(\LOA);
+\path (center)+(\LOAdisplah+\LOAh,\LOAdisplav+\LOAv) node [fontscale=1.5] (name) {Logic Analyzer};
+%Warning Alarm
+\draw[fill=green!20,rounded corners] (\WALdisplah,\WALdisplav) rectangle ++(\WAL);
+\path (center)+(\WALdisplah+\WALh,\WALdisplav+\WALv) node [fontscale=1.5] (name) {Warning Alarm};
+%Sensor logger
+\draw[fill=green!20,rounded corners] (\SLGdisplah,\SLGdisplav) rectangle ++(\SLG);
+\path (center)+(\SLGdisplah+\SLGh,\SLGdisplav+\SLGv) node [fontscale=1.5] (name) {Sensor Logger};
+%EB Library Slave
+\draw[fill=green!20,rounded corners] (\ELSdisplah,\ELSdisplav) rectangle ++(\ELS);
+\path (center)+(\ELSdisplah+\ELSh,\ELSdisplav+\ELSv) node [fontscale=1.5,rotate=270] (name) {EB Library};
+%HOST OS Slave
+\draw[fill=green!20,rounded corners] (\HOSdisplah,\HOSdisplav) rectangle ++(\HOS);
+\path (center)+(\HOSdisplah+\HOSh,\HOSdisplav+\HOSv) node [fontscale=1.5,rotate=270] (name) {Host OS};
+%WB SLAVE PHY
+\draw[fill=green!60,rounded corners] (\PHSdisplah,\PHSdisplav) rectangle ++(\PHS);
+\path (center)+(\PHSdisplah+\PHSh,\PHSdisplav+\PHSv) node [fontscale=1.5] (name) {PHY};
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%       ARROWS        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%TEMPLATE
+%\draw[blue,ultra thick,arrows={Stealth-Stealth}] (\displah+\h,\displav) to (\displah+\h,\displav+2*\v);
+%PHY-PHY
+\draw[black,ultra thick,arrows={-Stealth}] (\PHMdisplah+\PHMh*2,\PHMdisplav+\PHMv) to (\PHSdisplah,\PHMdisplav+\PHMv);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TEXT        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\path (center)+(\ERdisplah,\ERdisplav) node (name) {EB Request};
+
+\begin{pgfonlayer}{background}
+%    %Background
+    \path [fill=white!20] (\BCKdisplah,\BCKdisplav) rectangle ++(\BCK);
+%    %WB MASTER BACKGROUND
+    \path [fill=green!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BCKMdisplah,\BCKMdisplav) rectangle ++(\BCKM);
+%    %WB SLAVE BACKGROUND
+    \path [fill=green!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\BCKSdisplah,\BCKSdisplav) rectangle ++(\BCKS);
+
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
