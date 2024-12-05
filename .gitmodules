@@ -1,0 +1,3 @@
+[submodule "wr-cores"]
+	path = wr-cores
+	url = https://ohwr.org/project/wr-cores
