@@ -21,6 +21,9 @@ jobs:
       - name: 'Pulse_gen: analysis and elaboration test'
         run: |
           podman pull docker.io/ghdl/ext
-          podman run --rm -tv $(pwd):/wrk:Z -w /wrk ghdl/ext sh -c "mkdir -p build && ghdl -a --std=08 --workdir=build ./wr-cores/modules/timing/pulse_gen.vhd && ghdl -e --std=08 --workdir=build pulse_gen"
-          cd build
-          ls -l
+          podman run --rm -tv $(pwd):/wrk:Z -w /wrk ghdl/ext sh -c "
+          mkdir -p build \
+          && ghdl -a --std=08 --workdir=build ./wr-cores/modules/timing/pulse_gen.vhd \
+          && ghdl -e --std=08 --workdir=build pulse_gen \
+          && cd build \
+          && ls -l"
