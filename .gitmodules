@@ -1,3 +1,6 @@
 [submodule "wr-cores"]
 	path = wr-cores
 	url = https://ohwr.org/project/wr-cores
+[submodule "wrpc-sw"]
+	path = wrpc-sw
+	url = https://ohwr.org/project/wrpc-sw
