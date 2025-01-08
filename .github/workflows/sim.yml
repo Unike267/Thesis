@@ -1,0 +1,33 @@
+name: Simulation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  DAC_serial_dac856x:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: '🧰 Checkout'
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: 'Run DAC serial_dac856x sim'
+        uses: docker://docker.io/ghdl/ext
+        with:
+          args: ./sim/dac/run.py -v --gtkwave-fmt vcd
+
+      - name: '📤 Upload artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAC_SIM_FILES
+          path: |
+            ./vunit_out/wave/wave_dac.vcd
+            ./vunit_out/outcsv/tb_dac.csv
+
