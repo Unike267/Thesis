@@ -9,4 +9,5 @@
 *.toc
 INITIAL_RESEARCH_DOC.pdf
 *.run.xml
+vunit_out
 
