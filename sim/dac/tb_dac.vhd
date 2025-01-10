@@ -94,7 +94,7 @@ test_runner_cleanup(runner);
 wait;
 end process;
 
-test_1: process
+write: process
   begin
     done_1 <= false;
     wait until start and rising_edge(clk);
@@ -117,7 +117,7 @@ test_1: process
     wait;
 end process;
 
-test_2: process
+receive: process
     variable buf : std_logic_vector(23 downto 0);
     variable cnt : natural;
   begin
