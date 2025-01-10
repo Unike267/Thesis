@@ -2,8 +2,12 @@ name: Simulation
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
 
 jobs:
 
@@ -21,13 +25,21 @@ jobs:
       - name: 'Run DAC serial_dac856x sim'
         uses: docker://docker.io/ghdl/ext
         with:
-          args: ./sim/dac/run.py -v --gtkwave-fmt vcd
+          args: ./sim/dac/job_DAC_serial_dac856x.sh
 
       - name: '📤 Upload artifact'
         uses: actions/upload-artifact@v4
         with:
           name: DAC_SIM_FILES
           path: |
-            ./vunit_out/wave/wave_dac.vcd
-            ./vunit_out/outcsv/tb_dac.csv
+            ./wave_dac.vcd
+            ./tb_dac.csv
 
+      - name: '📤 Upload WAVE to Release Assets'
+        run: gh release upload --repo Unike267/Thesis --clobber $TAG $FILES
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: v0.2
+          FILES: |
+            ./wave_dac.vcd
+            ./tb_dac.csv

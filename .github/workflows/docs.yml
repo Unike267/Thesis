@@ -33,5 +33,5 @@ jobs:
         run: gh release upload --repo Unike267/Thesis --clobber $TAG $FILES
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: v0.1
+          TAG: v0.2
           FILES: ./initial_research/INITIAL_RESEARCH_DOC.pdf
