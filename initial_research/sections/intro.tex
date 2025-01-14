@@ -12,6 +12,7 @@ To start on this long way we will focus on the principal key words of this Thesi
 \item White Rabbit Project
 \begin{itemize}
 \item Synchronous Ethernet (SyncE) 
+\item FPGA Mezzanine Card (FMC)/ Simple PCIe FMC Carrier (SPEC)
 \item PTP (Precision Time Protocol) 
 \item EtherBone Core
 \item Chronos Project
@@ -89,7 +90,31 @@ High reliability is an important issue in WR’s design, since unavailability of
     \end{itemize}
 \end{itemize}
 
+\subsubsection{FPGA Mezzanine Card (FMC)/ Simple PCIe FMC Carrier (SPEC)}
+\label{FMC-SPEC}
+
+\textbf{FPGA Mezzanine Card (FMC)} is a standard developed by the VITA (VMEbus International Trade Association) under the VITA 57 specification, which defines a modular interface to connect additional cards (mezzanine cards) to an FPGA or other base hardware.
+
+\vspace{5 mm}
+
+\noindent FMC it is based in a Modular Interface that allows you to add specific functionalities to the base hardware (such as signal digitization, communication, or additional processing) without the need to redesign the entire system.
+FMC cards are typically compatible with different platforms, as long as they comply with the VITA 57 standard, making them reusable in various projects.
+They use high-speed interfaces, such as LVDS transmission lines or SerDes, to communicate with the base FPGA.
+
+\vspace{5 mm}
+
+\noindent \textbf{Simple PCIe FMC Carrier (SPEC)} is a carrier card that combines two important standards:
+
+\begin{itemize}
+\item Peripheral Component Interconnect Express (PCIe).
+\item FPGA Mezzanine Card (FMC)
+\end{itemize}
+
+\noindent This carrier card acts as a bridge between a PCIe system (such as a computer or server) and an FMC card. 
+It is typically designed so that developers can use an FPGA as the main processor, with capabilities extended by an FMC card.
+
 \subsubsection{Synchronous Ethernet (SyncE)}
+\label{SyncE}
 
 \subsubsection{PTP (Precision Time Protocol)}
 
