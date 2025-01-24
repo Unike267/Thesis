@@ -29,6 +29,13 @@ In addition to this, this file is available in the repository [actions](https://
 
 - Artifact name: `INITIAL_RESEARCH_DOC`
 
+## Simulations
+
+Currently, only the module named `serial_dac856x` is being simulated using my custom VUnit testbench based on the test `serial_dac856x_tb.vhd`, which is located in `/wr-cores/testbench/dac/`.
+
+Both the generated waveform and the CSV results from the CI execution of the testbench are uploaded as artifacts in the `Simulation` workflow (Job `DAC_serial_dac856x`). 
+These files are also attached to the assets of the Release starting from version `v0.2`, with the names `wave_dac.vcd` and `tb_dac.csv`.
+ 
 ## GOAL
 
 To perform this ASIC:
