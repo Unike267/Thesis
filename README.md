@@ -8,13 +8,15 @@
 
 ---
 
+## Important clarification ❗
+
+This repository is a public **incomplete** mirror of my official thesis repository, which is hosted privately on GitLab. 
+
+In other words, the information in this repository will be kept up to date relative to the private repository but **will not contain all the content.**
+
 ## Abstract
 
 Repository to store some stuffs of my thesis.
-
-This repository is a public, **incomplete** mirror of my official thesis repository, which is hosted privately on GitLab. 
-
-In other words, the information in this repository will be kept up to date relative to the private repository but **will not contain all the content.**
 
 ## Initial Research document
 
