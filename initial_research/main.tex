@@ -1,38 +1,45 @@
-% CREDITS:
-% Comprehensive exam template for ECE Ph.D. students at Queen's University. by Jefferson Silveira
-\documentclass[a4paper,12pt,english]{article}
-\usepackage[left=30mm,top=30mm,right=30mm,bottom=30mm]{geometry}
-\usepackage[T1]{fontenc}
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{float}
 \usepackage{mathpazo} % Use the Palatino font by default
-%\usepackage[skip=4pt plus1pt, indent=15pt]{parskip}
-\usepackage[utf8]{inputenc}
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{pdfpages}
 \usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{enumitem}
+\usepackage{subcaption}
 \usepackage{xcolor}
-\usepackage{float}
-\usepackage{hyperref}
-\usepackage{graphicx}
+\usepackage[square,numbers,sort]{natbib}
+\usepackage{multirow}
 \usepackage[newfloat]{minted} % Code listings, with syntax highlighting
-\usepackage[font=small,justification=centering]{caption}
-\usepackage{float}
+\usepackage{caption}
+\usepackage{tablefootnote} % for table footnotes
+\usepackage{hyperref}
 \usepackage[english]{babel}
+\usepackage[useregional]{datetime2}
 \usepackage[
     left = \flqq{},% 
     right = \frqq{},% 
     leftsub = \flq{},% 
     rightsub = \frq{} %
 ]{dirtytalk}
-\usepackage[square,numbers,sort]{natbib}
-\usepackage[useregional]{datetime2}
-%\usepackage{indentfirst}
-%\setlength\parindent{14pt}
+\usepackage{geometry}
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=2.75cm, % Inner margin
+	outer=3.5cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=2.5cm, % Top margin
+	bottom=2.5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+\usepackage{enumitem}
+\usepackage{fdsymbol}
+\usepackage{latexsym}
 
-
-%\renewcommand{\listingscaption}{Code}
-%\renewcommand{\listoflistingscaption}{List of Code}
-%
 \bibliographystyle{unsrtnat}
+
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Código}
 
 \hypersetup{
     colorlinks,
@@ -41,17 +48,48 @@
     urlcolor={red!80}
 }
 
-\newenvironment{code}{\captionsetup{type=listing}}{}
-\SetupFloatingEnvironment{listing}{name=Code}
-
 \begin{document}
 
 \pagenumbering{gobble} % remove page numbers (and reset to 1)
 
+\newlist{dig}{itemize}{6}
+\setlistdepth{6} 
+
+% Configure the behaviour of levels entries
+\setlist[dig, 1]
+{label=$\medblacktriangleright$ , 
+leftmargin=\parindent,
+rightmargin=10pt
+}
+\setlist[dig, 2]
+{label=$\smallblacktriangleright$, 
+leftmargin=15pt,
+rightmargin=15pt
+}
+\setlist[dig, 3]
+{label=$\medtriangleright$, 
+leftmargin=20pt,
+rightmargin=20pt
+}
+\setlist[dig, 4]
+{label=$\smalltriangleright$, 
+leftmargin=25pt,
+rightmargin=25pt
+}
+\setlist[dig, 5]
+{label=$\Rightarrow$, 
+leftmargin=30pt,
+rightmargin=30pt
+}
+\setlist[dig, 6]
+{label=$\rightarrow$, 
+leftmargin=35pt,
+rightmargin=25pt
+}
+
 \input{front}
 \tableofcontents
 \newpage
-
 %\listoffigures
 %\newpage
 %\listoftables
@@ -74,4 +112,3 @@
 %\input{sections/appendix}
 
 \end{document}
-
