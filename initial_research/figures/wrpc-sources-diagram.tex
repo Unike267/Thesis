@@ -1,0 +1,459 @@
+\documentclass[]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amsmath} % for \longrightarrow
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usetikzlibrary{shapes,arrows}
+\usepackage{relsize}
+\usepackage{pgfmath}
+\usepackage[a4paper, total={8in, 8in}]{geometry}
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%Def rectangles 
+
+%IP cores
+    %Etherbone
+    \def\EBh{\EBMh+2*\gaplvOneh}
+    \def\EBv{\EBMv+\EBSv+\EBUv+3*\gaplvOnev+\gaplvOnetit}
+    \def\EB{\EBh,\EBv}
+        %Etherbone master
+        \def\EBMh{3.5}
+        \def\EBMv{1}
+        \def\EBM{\EBMh,\EBMv}
+        %Etherbone slave
+        \def\EBSh{3.5}
+        \def\EBSv{1}
+        \def\EBS{\EBSh,\EBSv}
+        %Etherbone USB
+        \def\EBUh{3.5}
+        \def\EBUv{1}
+        \def\EBU{\EBUh,\EBUv}
+    %General-Cores
+    \def\GCh{\GCMh+2*\gaplvOneh}
+    \def\GCv{\GCMv+\GCPXv+2*\gaplvOnev+\gaplvOnetit}
+    \def\GC{\GCh,\GCv}
+        %Modules
+        \def\GCMh{\GCMCh+2*\gaplvTwoh}
+        \def\GCMv{\GCMCv+\GCMGv+\GCMWv+3*\gaplvTwov+\gaplvTwotit}
+        \def\GCM{\GCMh,\GCMv}
+            %Common
+            \def\GCMCh{3}
+            \def\GCMCv{1.25}
+            \def\GCMC{\GCMCh,\GCMCv}
+            %Genrams
+            \def\GCMGh{3}
+            \def\GCMGv{1.25}
+            \def\GCMG{\GCMGh,\GCMGv}
+            %Wishbone
+            \def\GCMWh{3}
+            \def\GCMWv{1.25}
+            \def\GCMW{\GCMWh,\GCMWv}
+        %Platform/Xilinx
+        \def\GCPXh{\GCPXMh+2*\gaplvTwoh}
+        \def\GCPXv{\GCPXMv+\GCPXFv+2*\gaplvTwov+\gaplvTwotit}    
+        \def\GCPX{\GCPXh,\GCPXv}
+            %Xil multiboot
+            \def\GCPXMh{3}
+            \def\GCPXMv{1.25}    
+            \def\GCPXM{\GCPXMh,\GCPXMv}
+            %Xilinix FPGA loader
+            \def\GCPXFh{3}
+            \def\GCPXFv{1.25}    
+            \def\GCPXF{\GCPXFh,\GCPXFv}
+    %GN4124-core
+    \def\GNh{\GNGh+2*\gaplvOneh}
+    \def\GNv{\GNGv+\GNSv+2*\gaplvOnev+\gaplvOnetit}
+    \def\GN{\GNh,\GNv}
+        %gn4124core
+        \def\GNGh{3.5}
+        \def\GNGv{1}    
+        \def\GNG{\GNGh,\GNGv}
+        %Spec
+        \def\GNSh{3.5}
+        \def\GNSv{1}   
+        \def\GNS{\GNSh,\GNSv}
+%Modules
+    %Timming
+    \def\TMh{3.5}
+    \def\TMv{2.75}    
+    \def\TM{\TMh,\TMv}
+    %WR DACS
+    \def\WRDh{3.5}
+    \def\WRDv{2.75}
+    \def\WRD{\WRDh,\WRDv}
+    %WR ECA
+    \def\WRECh{3.5}
+    \def\WRECv{2.75}
+    \def\WREC{\WRECh,\WRECv}
+    %WR ENDPOINT
+    \def\WRENh{3.5}
+    \def\WRENv{2.75}
+    \def\WREN{\WRENh,\WRENv}
+    %WR MINI NIC
+    \def\WRMh{3.5}
+    \def\WRMv{2.75}
+    \def\WRM{\WRMh,\WRMv}
+    %WR PPS GEN
+    \def\WRPh{3.5}
+    \def\WRPv{2.75}
+    \def\WRP{\WRPh,\WRPv}
+    %WR si57x interface
+    \def\WRSIh{3.5}
+    \def\WRSIv{2.75}
+    \def\WRSI{\WRSIh,\WRSIv}
+    %WR SOFTPLL NG
+    \def\WRSOh{3.5}
+    \def\WRSOv{2.75}
+    \def\WRSO{\WRSOh,\WRSOv}
+    %WR STREAMERS
+    \def\WRSTh{3.5}
+    \def\WRSTv{2.75}
+    \def\WRST{\WRSTh,\WRSTv}
+    %WR TBI PHY
+    \def\WRTBh{3.5}
+    \def\WRTBv{2.75}
+    \def\WRTB{\WRTBh,\WRTBv}
+    %WR TLU
+    \def\WRTLh{3.5}
+    \def\WRTLv{2.75}
+    \def\WRTL{\WRTLh,\WRTLv}
+    %WRC CORE
+    \def\WRCh{3.5}
+    \def\WRCv{2.75}
+    \def\WRC{\WRCh,\WRCv}
+%Platform
+    %Xilinx
+    \def\XIh{\XIGh+2*\gaplvOneh}
+    \def\XIv{\XIGv+\gaplvOnev+\gaplvOnetit}
+    \def\XI{\XIh,\XIv}
+        %WR GTP PHY
+        \def\XIGh{3.5}
+        \def\XIGv{1.25}
+        \def\XIG{\XIGh,\XIGv}
+%Background
+\def\Backh{\XIdisplah+\XIh+\gapbsh+\gapbh}
+\def\Backv{\GNdisplav+\GNv+2*\gapbsv+\gapbv}
+\def\Back{\Backh,\Backv}
+%Background IP cores one
+\def\BackIOneh{\GCh+2*\gapbsh}
+\def\BackIOnev{\GCv+3*\gapbsh}
+\def\BackIOne{\BackIOneh,\BackIOnev}
+%Background IP cores two
+\def\BackITwoh{\Backh-2*\gapbh}
+\def\BackITwov{1.75}
+\def\BackITwo{\BackITwoh,\BackITwov}
+%Background IP cores three
+\def\BackIThreeh{\EBh+2*\gapbsh}
+\def\BackIThreev{\EBv+\GNv+2*\gapbsh+\gapbh}
+\def\BackIThree{\BackIThreeh,\BackIThreev}
+%Background Modules
+\def\BackMh{\gapbsh+\TMh+\gapcenter+\WRDh+\gapcenter+\WRECh+\gapbsh}
+\def\BackMv{\gapbsv+\TMv+\gapcenter+\WRENv+\gapcenter+\WRSIv+\gapcenter+\WRTBv+\gapbsv}
+\def\BackM{\BackMh,\BackMv}
+%Background Platform
+\def\BackPh{\gapbsh+\XIh+\gapbsh}
+\def\BackPv{\gapbsv+\XIv+\gapbsv}
+\def\BackP{\BackPh,\BackPv}
+
+%Background tot
+\def\Backtoth{\XIdisplah+\XIh+\gapbsh+3*\gapbh}
+\def\Backtotv{\GNdisplav+\GNv+2*\gapbsv+3*\gapbv}
+\def\Backtot{\Backtoth,\Backtotv}
+
+%Def displacements
+
+%Gaps
+%Vertical gap (For all modules)
+\def\gapv{0}
+%Gap with total background
+\def\gapbh{0.5}
+\def\gapbv{0.5}
+%Gap with specifical background
+\def\gapbsh{0.25}
+\def\gapbsv{0.25}
+%Gap horizontal level one (width=4.5)
+\def\gaplvOneh{0.5}
+%Gap vertical level one (width=4.5)
+\def\gaplvOnev{0.5}
+%Gap horizontal level two (width=3.5)
+\def\gaplvTwoh{0.25}
+%Gap vertical level two (width=3.5)
+\def\gaplvTwov{0.5}
+%Gap title level one (width=4.5)
+\def\gaplvOnetit{1}
+%Gap title level two (width=3.5)
+\def\gaplvTwotit{0.75}
+%Gap central module (width=high)
+\def\gapcenter{0.25}
+
+%IP cores
+    %Etherbone
+    \def\EBdisplah{\XIdisplah}
+    \def\EBdisplav{\XIdisplav+\XIv+2*\gapbsv+\gapbv}
+        %Etherbone master
+        \def\EBMdisplah{\EBUdisplah}
+        \def\EBMdisplav{\EBSdisplav+\EBSv+\gaplvOnev}
+        %Etherbone slave
+        \def\EBSdisplah{\EBUdisplah}
+        \def\EBSdisplav{\EBUdisplav+\EBUv+\gaplvOnev}
+        %Etherbone USB
+        \def\EBUdisplah{\EBdisplah+\gaplvOneh}
+        \def\EBUdisplav{\EBdisplav+\gaplvOnev}
+    %General-Cores
+    \def\GCdisplah{\gapbh+\gapbsh}
+    \def\GCdisplav{\gapv+\gapbv+\gapbsv}
+        %Modules
+        \def\GCMdisplah{\GCdisplah+\gaplvOneh}
+        \def\GCMdisplav{\GCPXMdisplav+\GCPXMv+\gaplvTwotit+\gaplvOnev}
+            %Common
+            \def\GCMCdisplah{\GCMdisplah+\gaplvTwoh}
+            \def\GCMCdisplav{\GCMGdisplav+\GCMGv+\gaplvTwov}
+            %Genrams
+            \def\GCMGdisplah{\GCMdisplah+\gaplvTwoh}
+            \def\GCMGdisplav{\GCMWdisplav+\GCMWv+\gaplvTwov}
+            %Wishbone
+            \def\GCMWdisplah{\GCMdisplah+\gaplvTwoh}
+            \def\GCMWdisplav{\GCMdisplav+\gaplvTwov}
+        %Platform/Xilinx
+        \def\GCPXdisplah{\GCdisplah+\gaplvOneh}
+        \def\GCPXdisplav{\GCdisplav+\gaplvOnev}
+            %Xil multiboot
+            \def\GCPXMdisplah{\GCMdisplah+\gaplvTwoh}
+            \def\GCPXMdisplav{\GCPXFdisplav+\GCPXFv+\gaplvTwov}
+            %Xilinix FPGA loader
+            \def\GCPXFdisplah{\GCMdisplah+\gaplvTwoh}
+            \def\GCPXFdisplav{\GCPXdisplav+\gaplvTwov}
+    %GN4124-core
+    \def\GNdisplah{\EBdisplah}
+    \def\GNdisplav{\EBdisplav+\EBv+\gapbv}
+        %gn4124core
+        \def\GNGdisplah{\GNdisplah+\gaplvOneh}
+        \def\GNGdisplav{\GNSdisplav+\GNSv+\gaplvOnev}
+        %Spec
+        \def\GNSdisplah{\GNdisplah+\gaplvOneh}
+        \def\GNSdisplav{\GNdisplav+\gaplvOnev}
+%Modules
+    %Timming
+    \def\TMdisplah{\GCdisplah+\GCh+\gapbsh+\gapbh+\gapbsh}
+    \def\TMdisplav{\WRENdisplav+\WRENv+\gapcenter}
+    %WR DACS
+    \def\WRDdisplah{\TMdisplah+\TMh+\gapcenter}
+    \def\WRDdisplav{\TMdisplav}
+    %WR ECA
+    \def\WRECdisplah{\WRDdisplah+\WRDh+\gapcenter}
+    \def\WRECdisplav{\TMdisplav}
+    %WR ENDPOINT
+    \def\WRENdisplah{\TMdisplah}
+    \def\WRENdisplav{\WRSIdisplav+\WRSIv+\gapcenter}
+    %WR MINI NIC
+    \def\WRMdisplah{\WRDdisplah}
+    \def\WRMdisplav{\WRENdisplav}
+    %WR PPS GEN
+    \def\WRPdisplah{\WRECdisplah}
+    \def\WRPdisplav{\WRENdisplav}
+    %WR si57x interface
+    \def\WRSIdisplah{\TMdisplah}
+    \def\WRSIdisplav{\WRTBdisplav+\WRTBv+\gapcenter}
+    %WR SOFTPLL NG
+    \def\WRSOdisplah{\WRDdisplah}
+    \def\WRSOdisplav{\WRSIdisplav}
+    %WR STREAMERS
+    \def\WRSTdisplah{\WRECdisplah}
+    \def\WRSTdisplav{\WRSIdisplav}
+    %WR TBI PHY
+    \def\WRTBdisplah{\TMdisplah}
+    \def\WRTBdisplav{\GCdisplah}
+    %WR TLU
+    \def\WRTLdisplah{\WRDdisplah}
+    \def\WRTLdisplav{\GCdisplah}
+    %WRC CORE
+    \def\WRCdisplah{\WRECdisplah}
+    \def\WRCdisplav{\GCdisplah}
+%Platform
+    %Xilinx
+    \def\XIdisplah{\GCdisplah+\GCh+\gapbsh+\gapbh+\BackMh+\gapbh+\gapbsh}
+    \def\XIdisplav{\WRTBdisplav}
+        %WR GTP PHY
+        \def\XIGdisplah{\XIdisplah+\gaplvOneh}
+        \def\XIGdisplav{\XIdisplav+\gaplvOnev}
+%Background
+\def\Backdisplah{0}
+\def\Backdisplav{0+\gapv}
+%Background IP cores one
+\def\BackIOnedisplah{\gapbh}
+\def\BackIOnedisplav{\gapbv+\gapv}
+%Background IP cores two
+\def\BackITwodisplah{\gapbh}
+\def\BackITwodisplav{\GCv+\gapbv+2*\gapbsv}
+%Background IP cores three
+\def\BackIThreedisplah{\EBdisplah-\gapbsh}
+\def\BackIThreedisplav{\EBv-\gapbv-3*\gapbsv}
+%Background Modules
+\def\BackMdisplah{\WRTBdisplah-\gapbsh}
+\def\BackMdisplav{\WRTBdisplav-\gapbsv}
+%Background Platform
+\def\BackPdisplah{\XIdisplah-\gapbsh}
+\def\BackPdisplav{\XIdisplav-\gapbsv}
+
+%Background
+\def\Backtotdisplah{-\gapbv}
+\def\Backtotdisplav{-\gapbv+\gapv}
+
+%TITLE 
+\def\titdisplah{11.875}
+\def\titdisplav{\Backv+0.5}
+
+\begin{tikzpicture}
+\node (center) {};
+\path (center)+(0,-5) node (name) {};
+\path (center)+(5,0) node (name) {};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       TITLE      %%%%%%%%%%%%%%%%%%%%%%%%%
+\path (center)+(\titdisplah,\titdisplav) node [fontscale=3](name) {};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%       BLOCKS        %%%%%%%%%%%%%%%%%%%%%%%%%
+%WRPC
+%\draw[fill=yellow!20,rounded corners] (\displah,\displav) rectangle ++(\);
+%\path (center)+(\displah+\h,\displav+\v) node [fontscale=2] (name) {};
+
+\pgfmathparse{(\EBh)/2}
+\let\EBhalfh\pgfmathresult
+\pgfmathparse{(\GCh)/2}
+\let\GChalfh\pgfmathresult
+\pgfmathparse{(\GNh)/2}
+\let\GNhalfh\pgfmathresult
+\pgfmathparse{(\XIh)/2}
+\let\XIhalfh\pgfmathresult
+\pgfmathparse{(\GCMh)/2}
+\let\GCMhalfh\pgfmathresult
+\pgfmathparse{(\GCPXh)/2}
+\let\GCPXhalfh\pgfmathresult
+
+
+
+%IP cores
+    %Etherbone
+    \draw[fill=yellow!20,rounded corners] (\EBdisplah,\EBdisplav) rectangle ++(\EB);
+    \path (center)+(\EBdisplah+\EBhalfh,\EBdisplav+\EBv/2) node [fontscale=2] (name) {etherbone-core}; 
+        %Etherbone master
+        \draw[fill=yellow!30,rounded corners] (\EBMdisplah,\EBMdisplav) rectangle ++(\EBM);
+        \path (center)+(\EBMdisplah+\EBMh/2,\EBMdisplav+\EBMv/2) node [fontscale=2] (name) {eb\_master\_core};
+        %Etherbone slave
+        \draw[fill=yellow!30,rounded corners] (\EBSdisplah,\EBSdisplav) rectangle ++(\EBS);
+        \path (center)+(\EBSdisplah+\EBSh/2,\EBSdisplav+\EBSv/2) node [fontscale=2] (name) {eb\_slave\_core};
+        %Etherbone USB
+        \draw[fill=yellow!30,rounded corners] (\EBUdisplah,\EBUdisplav) rectangle ++(\EBU);
+        \path (center)+(\EBUdisplah+\EBUh/2,\EBUdisplav+\EBUv/2) node [fontscale=2] (name) {eb\_usb\_core};
+    %General-Cores
+    \draw[fill=yellow!20,rounded corners] (\GCdisplah,\GCdisplav) rectangle ++(\GC);
+    \path (center)+(\GCdisplah+\GChalfh,\GCdisplav+\GCv/2) node [fontscale=2] (name) {general-cores};
+        %Modules
+        \draw[fill=yellow!30,rounded corners] (\GCMdisplah,\GCMdisplav) rectangle ++(\GCM);
+        \path (center)+(\GCMdisplah+\GCMhalfh,\GCMdisplav+\GCMv/2) node [fontscale=2] (name) {modules};
+            %Common
+            \draw[fill=orange!20,rounded corners] (\GCMCdisplah,\GCMCdisplav) rectangle ++(\GCMC);
+            \path (center)+(\GCMCdisplah+\GCMCh/2,\GCMCdisplav+\GCMCv/2) node [fontscale=2] (name) {common};
+            %Genrams
+            \draw[fill=orange!20,rounded corners] (\GCMGdisplah,\GCMGdisplav) rectangle ++(\GCMG);
+            \path (center)+(\GCMGdisplah+\GCMGh/2,\GCMGdisplav+\GCMGv/2) node [fontscale=2] (name) {genrams};
+            %Wishbone
+            \draw[fill=orange!20,rounded corners] (\GCMWdisplah,\GCMWdisplav) rectangle ++(\GCMW);
+            \path (center)+(\GCMWdisplah+\GCMWh/2,\GCMWdisplav+\GCMWv/2) node [fontscale=2] (name) {wishbone};
+        %Platform/Xilinx
+        \draw[fill=yellow!30,rounded corners] (\GCPXdisplah,\GCPXdisplav) rectangle ++(\GCPX);
+        \path (center)+(\GCPXdisplah+\GCPXhalfh,\GCPXdisplav+\GCPXv/2) node [fontscale=2] (name) {platform};
+            %Xil multiboot
+            \draw[fill=orange!20,rounded corners] (\GCPXMdisplah,\GCPXMdisplav) rectangle ++(\GCPXM);
+            \path (center)+(\GCPXMdisplah+\GCPXMh/2,\GCPXMdisplav+\GCPXMv/2) node [fontscale=0] (name) {wb\_xil\_multiboot};
+            %Xilinix FPGA loader
+            \draw[fill=orange!20,rounded corners] (\GCPXFdisplah,\GCPXFdisplav) rectangle ++(\GCPXF);
+            \path (center)+(\GCPXFdisplah+\GCPXFh/2,\GCPXFdisplav+\GCPXFv/2) node [fontscale=-1] (name) {wb\_xilinx\_fpga\_loader};
+    %GN4124-core
+    \draw[fill=yellow!20,rounded corners] (\GNdisplah,\GNdisplav) rectangle ++(\GN);
+    \path (center)+(\GNdisplah+\GNhalfh,\GNdisplav+\GNv/2) node [fontscale=2] (name) {gn4124-core};
+        %gn4124core
+        \draw[fill=yellow!30,rounded corners] (\GNGdisplah,\GNGdisplav) rectangle ++(\GNG);
+        \path (center)+(\GNGdisplah+\GNGh/2,\GNGdisplav+\GNGv/2) node [fontscale=2] (name) {gn4124core};
+        %Spec
+        \draw[fill=yellow!30,rounded corners] (\GNSdisplah,\GNSdisplav) rectangle ++(\GNS);
+        \path (center)+(\GNSdisplah+\GNSh/2,\GNSdisplav+\GNSv/2) node [fontscale=2] (name) {spec};
+%Modules
+    %Timming
+    \draw[fill=yellow!20,rounded corners] (\TMdisplah,\TMdisplav) rectangle ++(\TM);
+    \path (center)+(\TMdisplah+\TMh/2,\TMdisplav+\TMv/2) node [fontscale=2] (name) {timing};
+    %WR DACS
+    \draw[fill=yellow!20,rounded corners] (\WRDdisplah,\WRDdisplav) rectangle ++(\WRD);
+    \path (center)+(\WRDdisplah+\WRDh/2,\WRDdisplav+\WRDv/2) node [fontscale=2] (name) {wr\_dac};
+    %WR ECA
+    \draw[fill=yellow!20,rounded corners] (\WRECdisplah,\WRECdisplav) rectangle ++(\WREC);
+    \path (center)+(\WRECdisplah+\WRECh/2,\WRECdisplav+\WRECv/2) node [fontscale=2] (name) {wr\_eca};
+    %WR ENDPOINT
+    \draw[fill=yellow!20,rounded corners] (\WRENdisplah,\WRENdisplav) rectangle ++(\WREN);
+    \path (center)+(\WRENdisplah+\WRENh/2,\WRENdisplav+\WRENv/2) node [fontscale=2] (name) {wr\_endpoint};
+    %WR MINI NIC
+    \draw[fill=yellow!20,rounded corners] (\WRMdisplah,\WRMdisplav) rectangle ++(\WRM);
+    \path (center)+(\WRMdisplah+\WRMh/2,\WRMdisplav+\WRMv/2) node [fontscale=2] (name) {wr\_mini\_nic};
+    %WR PPS GEN
+    \draw[fill=yellow!20,rounded corners] (\WRPdisplah,\WRPdisplav) rectangle ++(\WRP);
+    \path (center)+(\WRPdisplah+\WRPh/2,\WRPdisplav+\WRPv/2) node [fontscale=2] (name) {wr\_pps\_gen};
+    %WR si57x interface
+    \draw[fill=yellow!20,rounded corners] (\WRSIdisplah,\WRSIdisplav) rectangle ++(\WRSI);
+    \path (center)+(\WRSIdisplah+\WRSIh/2,\WRSIdisplav+\WRSIv/2) node [fontscale=1] (name) {wr\_si57x\_interface};
+    %WR SOFTPLL NG
+    \draw[fill=yellow!20,rounded corners] (\WRSOdisplah,\WRSOdisplav) rectangle ++(\WRSO);
+    \path (center)+(\WRSOdisplah+\WRSOh/2,\WRSOdisplav+\WRSOv/2) node [fontscale=2] (name) {wr\_softpll\_ng};
+    %WR STREAMERS
+    \draw[fill=yellow!20,rounded corners] (\WRSTdisplah,\WRSTdisplav) rectangle ++(\WRST);
+    \path (center)+(\WRSTdisplah+\WRSTh/2,\WRSTdisplav+\WRSTv/2) node [fontscale=2] (name) {wr\_streamers};
+    %WR TBI PHY
+    \draw[fill=yellow!20,rounded corners] (\WRTBdisplah,\WRTBdisplav) rectangle ++(\WRTB);
+    \path (center)+(\WRTBdisplah+\WRTBh/2,\WRTBdisplav+\WRTBv/2) node [fontscale=2] (name) {wr\_tbi\_phy};
+    %WR TLU
+    \draw[fill=yellow!20,rounded corners] (\WRTLdisplah,\WRTLdisplav) rectangle ++(\WRTL);
+    \path (center)+(\WRTLdisplah+\WRTLh/2,\WRTLdisplav+\WRTLv/2) node [fontscale=2] (name) {wr\_tlu};
+    %WRC CORE
+    \draw[fill=yellow!20,rounded corners] (\WRCdisplah,\WRCdisplav) rectangle ++(\WRC);
+    \path (center)+(\WRCdisplah+\WRCh/2,\WRCdisplav+\WRCv/2) node [fontscale=2] (name) {wrc\_core};
+%Platform
+    %Xilinx
+    \draw[fill=yellow!20,rounded corners] (\XIdisplah,\XIdisplav) rectangle ++(\XI);
+    \path (center)+(\XIdisplah+\XIhalfh,\XIdisplav+\XIv/2) node [fontscale=2] (name) {xilinx};
+        %WR GTP PHY
+        \draw[fill=yellow!30,rounded corners] (\XIGdisplah,\XIGdisplav) rectangle ++(\XIG);
+        \path (center)+(\XIGdisplah+\XIGh/2,\XIGdisplav+\XIGv/2) node [fontscale=2] (name) {wr\_gtp\_phy};
+%%%%%%%%%%%%%%%%%%%%%%%%%       ARROWS        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%EtherBone-WRI
+%\draw[blue,ultra thick,arrows={Stealth-Stealth}] (\EBdisplah+\EBh,\EBdisplav) to (\EBdisplah+\EBh,\WRIdisplav+2*\WRIv);
+%%%%%%%%%%%%%%%%%%%%%%%%%       TEXT        %%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{pgfonlayer}{background}
+    %Background tot
+    \path [fill=white!10] (\Backtotdisplah,\Backtotdisplav) rectangle ++(\Backtot);
+    %Background
+    \path [fill=white!10,rounded corners,opacity=0.5,draw=black!50, loosely dashdotted] (\Backdisplah,\Backdisplav) rectangle ++(\Back);
+        %Background IP cores one
+        \path [fill=green!50,rounded corners] (\BackIOnedisplah,\BackIOnedisplav) rectangle ++(\BackIOne);
+        %Background IP cores two
+        \path [fill=green!50,rounded corners] (\BackITwodisplah,\BackITwodisplav) rectangle ++(\BackITwo);
+        %Background IP cores three
+        \path [fill=green!50,rounded corners] (\BackIThreedisplah,\BackIThreedisplav) rectangle ++(\BackIThree);
+        %Background Modules
+        \path [fill=red!50,rounded corners] (\BackMdisplah,\BackMdisplav) rectangle ++(\BackM);
+        %Background Platform
+        \path [fill=blue!50,rounded corners] (\BackPdisplah,\BackPdisplav) rectangle ++(\BackP);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
