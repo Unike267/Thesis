@@ -240,3 +240,32 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
         \end{dig}
     \end{dig}
 \end{dig}
+
+\vspace{5mm}
+
+\noindent According to this list of modules, I've generated the following block diagram shown in \ref{fig:dig}.
+
+\vspace{5mm}
+
+\noindent The green zone of the figure corresponds to the modules located in the \say{ip\_core} directory, the red zone to those in \say{modules}, and the blue zone to those in \say{platform}.
+
+\begin{landscape}
+\newgeometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=1cm, % Inner margin
+	outer=4cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=12cm, % Top margin
+	bottom=-5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=26cm]{figures/wrpc-sources-diagram.pdf}
+    \captionsetup{name=\hspace{10cm}Figure,format=plain,justification=centering,width=20cm}
+    \caption{Block diagram of WRPC v4.2 for Spartan6.}
+    \label{fig:dig}
+\end{figure}
+\restoregeometry
+\end{landscape}
