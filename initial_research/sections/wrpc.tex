@@ -74,6 +74,9 @@ In this context, one of the best options is \say{QuestaSim}.
 
 \subsection{WRPC Simulation}
 
+\subsubsection{WRPC v4.2 for Spartan6}
+\label{list-wrpc}
+
 I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for \textbf{Spartan6} FPGA.
 
 \vspace{5mm}
@@ -269,3 +272,23 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
 \end{figure}
 \restoregeometry
 \end{landscape}
+
+\subsubsection{DAC: serial\_dac856x}
+
+\noindent As a proof of concept for performing simulation in continuous integration using free/libre tools, the \say{serial\_dac856x} DAC has been simulated.
+
+\vspace{5mm}
+
+\noindent This simulation was carried out using the VUnit \cite{gh:vunit} framework and the GHDL \cite{gh:ghdl} simulator.
+
+\vspace{5mm}
+
+\noindent Since there is no free/libre mixed-language simulator available, generating a complete WRPC simulation is not possible in the GitHub-hosted repository. However, this limitation does not apply to the GitLab repository, where we have access to a private container with Questasim and VUnit.
+
+\vspace{5mm}
+
+\noindent This restriction exists because several WRPC module sources are written in Verilog, see \ref{list-wrpc}.
+
+\vspace{5mm}
+
+\noindent The simulation results, including both the waveform and the \say{CSV} file containing the verbose output, are uploaded as artifacts and attached to the release assets, see \href{https://github.com/Unike267/Thesis/releases}{github.com/Unike267/Thesis/releases}.
