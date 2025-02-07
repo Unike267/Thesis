@@ -37,14 +37,14 @@ In addition to this, this file is available in the repository [actions](https://
 
 ## Simulations
 
-Currently, only the module named `serial_dac856x` is being simulated using my custom VUnit testbench based on the test `serial_dac856x_tb.vhd`, which is located in `/wr-cores/testbench/dac/`.
+Currently, only the module named `serial_dac856x` is being simulated in CI using my custom VUnit testbench based on the test `serial_dac856x_tb.vhd`, which is located in `/wr-cores/testbench/dac/`.
 
 Both the generated waveform and the CSV results from the CI execution of the testbench are uploaded as artifacts in the `Simulation` workflow (Job `DAC_serial_dac856x`). 
-These files are also attached to the assets of the Release starting from version `v0.2`, with the names `wave_dac.vcd` and `tb_dac.csv`.
+These files are also attached to the assets of the [releases](https://github.com/Unike267/Thesis/releases) starting from version `v0.2`, with the names `wave_dac.vcd` and `tb_dac.csv`.
 
 Due to the fact that a few WRPC modules, such as [urv-core](https://ohwr.org/project/urv-core), are written in Verilog, and most of the testbench top modules (located in `/wr-cores/testbench`) are in SystemVerilog, I can't run the WRPC simulation in this repository's CI at the moment, as there is no free/libre mixed-language simulator available.
 
-To see how I've simulated [`WRPC-v.4.2`](https://ohwr.org/project/wr-cores/-/tree/wrpc-v4.2), see [#2](https://github.com/Unike267/Thesis/issues/2).
+To see how I simulated [`WRPC-v.4.2`](https://ohwr.org/project/wr-cores/-/tree/wrpc-v4.2) locally, see [#2](https://github.com/Unike267/Thesis/issues/2).
  
 ## GOAL
 
