@@ -1,0 +1,207 @@
+Inputs and outputs of the components included in main.sv
+
+tbi_clock_rst_gen/clkgen:
+
+    OUTPUTS:
+        .clk_ref_o                    (clk_ref),
+        .clk_sys_o                    (clk_sys),
+        .phy_rbclk_o                  (phy_rbclk),
+        .rst_n_o                      (rst_n)
+
+
+wr_core/DUT (WR PTP CORE):
+
+    INPUTS:
+        .clk_sys_i                    (clk_sys),
+        .clk_dmtd_i                   (clk_ref),
+        .clk_ref_i                    (clk_ref),
+        .rst_n_i                      (rst_n),
+
+        // UART
+        .uart_rxd_i                   (1'b0),
+
+        // I2C
+        .scl_i                      (scl_loop),
+        .sda_i                      (sda_loop),
+
+        .btn1_i                     (1'b0),
+        .btn2_i                     (1'b0),
+
+        // connected to wrf_loopback
+        .ext_snk_adr_i              (wrc_snk_adr),
+        .ext_snk_dat_i              (wrc_snk_dat),
+        .ext_snk_sel_i              (wrc_snk_sel),
+        .ext_snk_cyc_i              (wrc_snk_cyc),
+        .ext_snk_we_i               (1'b1),
+        .ext_snk_stb_i              (wrc_snk_stb),
+
+        .ext_src_ack_i              (wrc_src_ack),
+        .ext_src_err_i              (wrc_src_err),
+        .ext_src_stall_i            (wrc_src_stall),
+
+        // WISHBONE
+        .wb_adr_i                   (WB_wrc.master.adr[31:0]),
+        .wb_dat_i                   (WB_wrc.master.dat_o),
+        .wb_sel_i                   (4'b1111),
+        .wb_we_i                    (WB_wrc.master.we),
+        .wb_cyc_i                   (WB_wrc.master.cyc),
+        .wb_stb_i                   (WB_wrc.master.stb),
+
+        // PHY
+        .phy_ref_clk_i              (clk_ref),
+        .phy_tx_disparity_i         (phy_tx_disparity),
+        .phy_tx_enc_err_i           (phy_tx_enc_err),
+        .phy_rx_rbclk_i             (clk_ref),
+        .phy_rx_data_i              (phy_rx_data),
+        .phy_rx_k_i                 (phy_rx_k),
+        .phy_rx_enc_err_i           (phy_rx_enc_err),
+        .phy_rx_bitslide_i          (phy_rx_bitslide),
+
+    OUTPUTS:
+        .pps_p_o                    (),
+        .dac_hpll_load_p1_o         (),
+        .dac_hpll_data_o            (),
+        .dac_dpll_load_p1_o         (),
+        .dac_dpll_data_o            (),
+
+        // UART
+        .uart_txd_o                 (),
+
+        // I2C
+        .scl_o                      (scl_loop),
+        .sda_o                      (sda_loop),
+
+        .led_link_o                 (link_up),
+
+        // connected to wrf_loopback
+        .ext_snk_ack_o              (wrc_snk_ack),
+        .ext_snk_err_o              (wrc_snk_err),
+        .ext_snk_stall_o            (wrc_snk_stall),
+
+        .ext_src_adr_o              (wrc_src_adr),
+        .ext_src_dat_o              (wrc_src_dat),
+        .ext_src_sel_o              (wrc_src_sel),
+        .ext_src_cyc_o              (wrc_src_cyc),
+        .ext_src_stb_o              (wrc_src_stb),
+        .ext_src_we_o               (),
+
+        // WISHBONE
+        .wb_dat_o                   (WB_wrc.master.dat_i),
+        .wb_ack_o                   (WB_wrc.master.ack),
+        .wb_stall_o                 (WB_wrc.master.stall),
+
+        // PHY
+        .phy_tx_data_o              (phy_tx_data),
+        .phy_tx_k_o                 (phy_tx_k),
+        .phy_rst_o                  (phy_rst),
+        .phy_loopen_o               (phy_lo)
+
+
+wr_endpoint/EP (ENDPOINT):
+
+    INPUTS:
+        .clk_ref_i                  (clk_ref),
+        .clk_sys_i                  (clk_sys),
+        .clk_dmtd_i                 (clk_ref),
+        .rst_sys_n_i                (rst_n),
+        .rst_ref_n_i                (rst_n),
+        .rst_dmtd_n_i               (rst_n),
+        .rst_txclk_n_i              (rst_n),
+        .rst_rxclk_n_i              (rst_n),
+        .pps_csync_p1_i             (1'b0),
+
+        // PHY
+        .phy_sfp_tx_fault_i         (1'b0),
+        .phy_sfp_los_i              (1'b0),
+        .phy_rdy_i                  (1'b1),
+        .phy_ref_clk_i              (clk_ref),
+        .phy_tx_disparity_i         (phy_tx_disparity),
+        .phy_tx_enc_err_i           (phy_tx_enc_err),
+        .phy_rx_data_i              (phy_tx_data),
+        .phy_rx_clk_i               (clk_ref),
+        .phy_rx_k_i                 (phy_tx_k),
+        .phy_rx_enc_err_i           (phy_rx_enc_err),
+        .phy_rx_bitslide_i          (phy_rx_bitslide),
+
+        // connected to simulation
+        .src_stall_i                (WB_ep_snk.slave.stall),
+        .src_ack_i                  (WB_ep_snk.slave.ack),
+        .src_err_i                  (1'b0),
+
+        .snk_dat_i                  (WB_ep_src.master.dat_o),
+        .snk_adr_i                  (WB_ep_src.master.adr),
+        .snk_sel_i                  (WB_ep_src.master.sel),
+        .snk_cyc_i                  (WB_ep_src.master.cyc),
+        .snk_stb_i                  (WB_ep_src.master.stb),
+        .snk_we_i                   (WB_ep_src.master.we),
+
+        // WISHBONE
+        .wb_cyc_i                   (WB_ep.master.cyc),
+        .wb_stb_i                   (WB_ep.master.stb),
+        .wb_we_i                    (WB_ep.master.we),
+        .wb_sel_i                   (WB_ep.master.sel),
+        .wb_adr_i                   (WB_ep.master.adr[7:0]),
+        .wb_dat_i                   (WB_ep.master.dat_o),
+
+    OUTPUTS:
+        // PHY
+        .phy_tx_data_o              (phy_rx_data),
+        .phy_tx_k_o                 (phy_rx_k),
+
+        // connected to simulation
+        .src_dat_o                  (WB_ep_snk.slave.dat_i),
+        .src_adr_o                  (WB_ep_snk.slave.adr),
+        .src_sel_o                  (WB_ep_snk.slave.sel),
+        .src_cyc_o                  (WB_ep_snk.slave.cyc),
+        .src_stb_o                  (WB_ep_snk.slave.stb),
+        .src_we_o                   (WB_ep_snk.slave.we),
+
+        .snk_stall_o                (WB_ep_src.master.stall),
+        .snk_ack_o                  (WB_ep_src.master.ack),
+        .snk_err_o                  (WB_ep_src.master.err),
+
+        // WISHBONE
+        .wb_dat_o                   (WB_ep.master.dat_i),
+        .wb_ack_o                   (WB_ep.master.ack),
+        .wb_stall_o                 (WB_ep.master.stall));
+
+
+wrf_loopback/WRF_LBK (LOOPBACK):
+
+    INPUTS:
+        .clk_sys_i                  (clk_sys),
+        .rst_n_i                    (rst_n),
+        .snk_cyc_i                  (wrc_src_cyc),
+        .snk_stb_i                  (wrc_src_stb),
+        .snk_we_i                   (1'b1),
+        .snk_sel_i                  (wrc_src_sel),
+        .snk_adr_i                  (wrc_src_adr),
+        .snk_dat_i                  (wrc_src_dat),
+
+        .src_ack_i                  (wrc_snk_ack),
+        .src_stall_i                (wrc_snk_stall),
+
+        // WISHBONE
+        .wb_cyc_i                   (WB_lbk.master.cyc),
+        .wb_stb_i                   (WB_lbk.master.stb),
+        .wb_we_i                    (WB_lbk.master.we),
+        .wb_sel_i                   (4'b1111),
+        .wb_adr_i                   (WB_lbk.master.adr),
+        .wb_dat_i                   (WB_lbk.master.dat_o),
+
+
+    OUTPUTS:
+        .snk_ack_o                  (wrc_src_ack),
+        .snk_stall_o                (wrc_src_stall),
+
+        .src_cyc_o                  (wrc_snk_cyc),
+        .src_stb_o                  (wrc_snk_stb),
+        .src_we_o                   (),
+        .src_sel_o                  (wrc_snk_sel),
+        .src_adr_o                  (wrc_snk_adr),
+        .src_dat_o                  (wrc_snk_dat),
+
+        // WISHBONE
+        .wb_dat_o                   (WB_lbk.master.dat_i),
+        .wb_ack_o                   (WB_lbk.master.ack),
+        .wb_stall_o                 (WB_lbk.master.stall));
