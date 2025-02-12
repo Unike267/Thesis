@@ -171,6 +171,8 @@ wrf_loopback/WRF_LBK (LOOPBACK):
     INPUTS:
         .clk_sys_i                  (clk_sys),
         .rst_n_i                    (rst_n),
+
+        // connected to wr_core
         .snk_cyc_i                  (wrc_src_cyc),
         .snk_stb_i                  (wrc_src_stb),
         .snk_we_i                   (1'b1),
@@ -189,8 +191,8 @@ wrf_loopback/WRF_LBK (LOOPBACK):
         .wb_adr_i                   (WB_lbk.master.adr),
         .wb_dat_i                   (WB_lbk.master.dat_o),
 
-
     OUTPUTS:
+        // connected to wr_core
         .snk_ack_o                  (wrc_src_ack),
         .snk_stall_o                (wrc_src_stall),
 
