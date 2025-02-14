@@ -273,6 +273,257 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
 \restoregeometry
 \end{landscape}
 
+\noindent Taking a closer look at the \say{main.sv} testbench, I summarized the inputs and outputs of the four different modules imported into the test, which are:
+
+\begin{itemize}
+\item Clock/reset generator
+\item Design Under Test: WRPC
+\item Endpoint
+\item Loopback
+\end{itemize}
+
+\noindent The following list presents them:
+
+\begin{dig}
+\item tbi\_clock\_rst\_gen/clkgen:
+    \begin{dig}
+    \item OUTPUTS:
+        \begin{dig}
+        \item .clk\_ref\_o                    (clk\_ref)
+        \item .clk\_sys\_o                    (clk\_sys)
+        \item .phy\_rbclk\_o                  (phy\_rbclk)
+        \item .rst\_n\_o                      (rst\_n)
+        \end{dig}
+    \end{dig}
+\item wr\_core/DUT (WR PTP CORE):
+    \begin{dig}
+    \item INPUTS:
+        \begin{dig}
+        \item .clk\_sys\_i                    (clk\_sys)
+        \item .clk\_dmtd\_i                   (clk\_ref)
+        \item .clk\_ref\_i                    (clk\_ref)
+        \item .rst\_n\_i                      (rst\_n)
+        \item UART:
+            \begin{dig}
+            \item .uart\_rxd\_i                   (1'b0)
+            \end{dig}
+        \item I2C:
+            \begin{dig}
+            \item .scl\_i                      (scl\_loop)
+            \item .sda\_i                      (sda\_loop)
+            \end{dig}
+        \item .btn1\_i                     (1'b0)
+        \item .btn2\_i                     (1'b0)
+        \item Connected to wrf\_loopback:
+            \begin{dig}
+            \item .ext\_snk\_adr\_i              (wrc\_snk\_adr)
+            \item .ext\_snk\_dat\_i              (wrc\_snk\_dat)
+            \item .ext\_snk\_sel\_i              (wrc\_snk\_sel)
+            \item .ext\_snk\_cyc\_i              (wrc\_snk\_cyc)
+            \item .ext\_snk\_we\_i               (1'b1)
+            \item .ext\_snk\_stb\_i              (wrc\_snk\_stb)
+            \item 
+            \item .ext\_src\_ack\_i              (wrc\_src\_ack)
+            \item .ext\_src\_err\_i              (wrc\_src\_err)
+            \item .ext\_src\_stall\_i            (wrc\_src\_stall)
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_adr\_i                   (WB\_wrc.master.adr[31:0])
+            \item .wb\_dat\_i                   (WB\_wrc.master.dat\_o)
+            \item .wb\_sel\_i                   (4'b1111)
+            \item .wb\_we\_i                    (WB\_wrc.master.we)
+            \item .wb\_cyc\_i                   (WB\_wrc.master.cyc)
+            \item .wb\_stb\_i                   (WB\_wrc.master.stb)
+            \end{dig}
+        \item PHY:
+            \begin{dig}
+            \item .phy\_ref\_clk\_i              (clk\_ref)
+            \item .phy\_tx\_disparity\_i         (phy\_tx\_disparity)
+            \item .phy\_tx\_enc\_err\_i           (phy\_tx\_enc\_err)
+            \item .phy\_rx\_rbclk\_i             (clk\_ref)
+            \item .phy\_rx\_data\_i              (phy\_rx\_data)
+            \item .phy\_rx\_k\_i                 (phy\_rx\_k)
+            \item .phy\_rx\_enc\_err\_i           (phy\_rx\_enc\_err)
+            \item .phy\_rx\_bitslide\_i          (phy\_rx\_bitslide)
+            \end{dig}
+        \end{dig}
+    \item OUTPUTS:
+        \begin{dig}
+        \item .pps\_p\_o                    ()
+        \item .dac\_hpll\_load\_p1\_o         ()
+        \item .dac\_hpll\_data\_o            ()
+        \item .dac\_dpll\_load\_p1\_o         ()
+        \item .dac\_dpll\_data\_o            ()
+        \item UART:
+            \begin{dig}
+            \item .uart\_txd\_o                 ()
+            \end{dig}
+        \item I2C:
+            \begin{dig}
+            \item .scl\_o                      (scl\_loop)
+            \item .sda\_o                      (sda\_loop)
+            \end{dig}
+        \item .led\_link\_o                 (link\_up)
+        \item connected to wrf\_loopback
+            \begin{dig}
+            \item .ext\_snk\_ack\_o              (wrc\_snk\_ack)
+            \item .ext\_snk\_err\_o              (wrc\_snk\_err)
+            \item .ext\_snk\_stall\_o            (wrc\_snk\_stall)
+            \item 
+            \item .ext\_src\_adr\_o              (wrc\_src\_adr)
+            \item .ext\_src\_dat\_o              (wrc\_src\_dat)
+            \item .ext\_src\_sel\_o              (wrc\_src\_sel)
+            \item .ext\_src\_cyc\_o              (wrc\_src\_cyc)
+            \item .ext\_src\_stb\_o              (wrc\_src\_stb)
+            \item .ext\_src\_we\_o               ()
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_dat\_o                   (WB\_wrc.master.dat\_i)
+            \item .wb\_ack\_o                   (WB\_wrc.master.ack)
+            \item .wb\_stall\_o                 (WB\_wrc.master.stall)
+            \end{dig}
+        \item PHY:
+            \begin{dig}
+            \item .phy\_tx\_data\_o              (phy\_tx\_data)
+            \item .phy\_tx\_k\_o                 (phy\_tx\_k)
+            \item .phy\_rst\_o                  (phy\_rst)
+            \item .phy\_loopen\_o               (phy\_lo)
+            \end{dig}
+        \end{dig}
+    \end{dig}
+\item wr\_endpoint/EP (ENDPOINT):
+    \begin{dig}
+    \item INPUTS:
+        \begin{dig}
+        \item .clk\_ref\_i                  (clk\_ref)
+        \item .clk\_sys\_i                  (clk\_sys)
+        \item .clk\_dmtd\_i                 (clk\_ref)
+        \item .rst\_sys\_n\_i                (rst\_n)
+        \item .rst\_ref\_n\_i                (rst\_n)
+        \item .rst\_dmtd\_n\_i               (rst\_n)
+        \item .rst\_txclk\_n\_i              (rst\_n)
+        \item .rst\_rxclk\_n\_i              (rst\_n)
+        \item .pps\_csync\_p1\_i             (1'b0)
+        \item PHY:
+            \begin{dig}
+            \item .phy\_sfp\_tx\_fault\_i         (1'b0)
+            \item .phy\_sfp\_los\_i              (1'b0)
+            \item .phy\_rdy\_i                  (1'b1)
+            \item .phy\_ref\_clk\_i              (clk\_ref)
+            \item .phy\_tx\_disparity\_i         (phy\_tx\_disparity)
+            \item .phy\_tx\_enc\_err\_i           (phy\_tx\_enc\_err)
+            \item .phy\_rx\_data\_i              (phy\_tx\_data)
+            \item .phy\_rx\_clk\_i               (clk\_ref)
+            \item .phy\_rx\_k\_i                 (phy\_tx\_k)
+            \item .phy\_rx\_enc\_err\_i           (phy\_rx\_enc\_err)
+            \item .phy\_rx\_bitslide\_i          (phy\_rx\_bitslide)
+            \end{dig}
+        \item Connected to simulation:
+            \begin{dig}
+            \item .src\_stall\_i                (WB\_ep\_snk.slave.stall)
+            \item .src\_ack\_i                  (WB\_ep\_snk.slave.ack)
+            \item .src\_err\_i                  (1'b0)
+            \item 
+            \item .snk\_dat\_i                  (WB\_ep\_src.master.dat\_o)
+            \item .snk\_adr\_i                  (WB\_ep\_src.master.adr)
+            \item .snk\_sel\_i                  (WB\_ep\_src.master.sel)
+            \item .snk\_cyc\_i                  (WB\_ep\_src.master.cyc)
+            \item .snk\_stb\_i                  (WB\_ep\_src.master.stb)
+            \item .snk\_we\_i                   (WB\_ep\_src.master.we)
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_cyc\_i                   (WB\_ep.master.cyc)
+            \item .wb\_stb\_i                   (WB\_ep.master.stb)
+            \item .wb\_we\_i                    (WB\_ep.master.we)
+            \item .wb\_sel\_i                   (WB\_ep.master.sel)
+            \item .wb\_adr\_i                   (WB\_ep.master.adr[7:0])
+            \item .wb\_dat\_i                   (WB\_ep.master.dat\_o)
+            \end{dig}
+        \end{dig}
+    \item OUTPUTS:
+        \begin{dig}
+        \item PHY:
+            \begin{dig}
+            \item .phy\_tx\_data\_o              (phy\_rx\_data)
+            \item .phy\_tx\_k\_o                 (phy\_rx\_k)
+            \end{dig}
+        \item Connected to simulation:
+            \begin{dig}
+            \item .src\_dat\_o                  (WB\_ep\_snk.slave.dat\_i)
+            \item .src\_adr\_o                  (WB\_ep\_snk.slave.adr)
+            \item .src\_sel\_o                  (WB\_ep\_snk.slave.sel)
+            \item .src\_cyc\_o                  (WB\_ep\_snk.slave.cyc)
+            \item .src\_stb\_o                  (WB\_ep\_snk.slave.stb)
+            \item .src\_we\_o                   (WB\_ep\_snk.slave.we)
+            \item 
+            \item .snk\_stall\_o                (WB\_ep\_src.master.stall)
+            \item .snk\_ack\_o                  (WB\_ep\_src.master.ack)
+            \item .snk\_err\_o                  (WB\_ep\_src.master.err)
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_dat\_o                   (WB\_ep.master.dat\_i)
+            \item .wb\_ack\_o                   (WB\_ep.master.ack)
+            \item .wb\_stall\_o                 (WB\_ep.master.stall));
+            \end{dig}
+        \end{dig}
+    \end{dig}
+\item wrf\_loopback/WRF\_LBK (LOOPBACK): 
+    \begin{dig}
+    \item INPUTS:
+        \begin{dig}
+        \item .clk\_sys\_i                  (clk\_sys)
+        \item .rst\_n\_i                    (rst\_n)
+        \item Connected to wr\_core:
+            \begin{dig}
+            \item .snk\_cyc\_i                  (wrc\_src\_cyc)
+            \item .snk\_stb\_i                  (wrc\_src\_stb)
+            \item .snk\_we\_i                   (1'b1)
+            \item .snk\_sel\_i                  (wrc\_src\_sel)
+            \item .snk\_adr\_i                  (wrc\_src\_adr)
+            \item .snk\_dat\_i                  (wrc\_src\_dat)
+            \item 
+            \item .src\_ack\_i                  (wrc\_snk\_ack)
+            \item .src\_stall\_i                (wrc\_snk\_stall)
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_cyc\_i                   (WB\_lbk.master.cyc)
+            \item .wb\_stb\_i                   (WB\_lbk.master.stb)
+            \item .wb\_we\_i                    (WB\_lbk.master.we)
+            \item .wb\_sel\_i                   (4'b1111)
+            \item .wb\_adr\_i                   (WB\_lbk.master.adr)
+            \item .wb\_dat\_i                   (WB\_lbk.master.dat\_o)
+            \end{dig}
+        \end{dig}
+    \item OUTPUTS:
+        \begin{dig}
+        \item Connected to wr\_core:
+            \begin{dig}
+            \item .snk\_ack\_o                  (wrc\_src\_ack)
+            \item .snk\_stall\_o                (wrc\_src\_stall)
+            \item 
+            \item .src\_cyc\_o                  (wrc\_snk\_cyc)
+            \item .src\_stb\_o                  (wrc\_snk\_stb)
+            \item .src\_we\_o                   ()
+            \item .src\_sel\_o                  (wrc\_snk\_sel)
+            \item .src\_adr\_o                  (wrc\_snk\_adr)
+            \item .src\_dat\_o                  (wrc\_snk\_dat)
+            \end{dig}
+        \item WISHBONE:
+            \begin{dig}
+            \item .wb\_dat\_o                   (WB\_lbk.master.dat\_i)
+            \item .wb\_ack\_o                   (WB\_lbk.master.ack)
+            \end{dig}
+        \end{dig}
+    \end{dig}
+\end{dig}
+
+\newpage 
+
 \subsubsection{DAC: serial\_dac856x}
 
 \noindent As a proof of concept for performing simulation in continuous integration using free/libre tools, the \say{serial\_dac856x} DAC has been simulated.
