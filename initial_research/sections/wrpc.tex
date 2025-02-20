@@ -524,6 +524,41 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
 
 \newpage 
 
+\noindent This simulation has been successfully integrated into the continuous integration pipeline of the GitLab repository, see \href{https://github.com/Unike267/Thesis/issues/3}{github.com/Unike267/Thesis/ issues/3}.
+Some of the most important steps that have been carried out are:
+
+\begin{dig}
+\item Compile the necessary Xilinx libraries (\say{unisim} and \say{xilinxcorelib}) using ISE as an intermediary.
+\item Generate the required Makefile using the hdlmake tool \cite{hdl-make:ohwr}.
+\item Run the simulation with Questasim.
+\item Upload the waveform as an artifact.
+\end{dig}
+
+\vspace{1mm}
+
+\noindent This process is illustrated graphically through the following images:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{figures/wrpc_ci_1.png}
+\caption{Compiling the Xilinx libraries and generating the Makefile.}
+\label{fig:wrpc-ci-1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{figures/wrpc_ci_2.png}
+\caption{Running the simulation with Questasim.}
+\label{fig:wrpc-ci-2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{figures/wrpc_ci_3.png}
+\caption{Uploading the waveform as an artifact.}
+\label{fig:wrpc-ci-3}
+\end{figure}
+
 \subsubsection{DAC: serial\_dac856x}
 
 \noindent As a proof of concept for performing simulation in continuous integration using free/libre tools, the \say{serial\_dac856x} DAC has been simulated.
