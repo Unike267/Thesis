@@ -1,6 +1,6 @@
 [submodule "wr-cores"]
 	path = wr-cores
-	url = https://ohwr.org/project/wr-cores
+	url = https://gitlab.com/ohwr/project/wr-cores
 [submodule "wrpc-sw"]
 	path = wrpc-sw
-	url = https://ohwr.org/project/wrpc-sw
+	url = https://gitlab.com/ohwr/project/wrpc-sw
