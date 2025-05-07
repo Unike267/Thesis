@@ -524,6 +524,25 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
 
 \newpage 
 
+\subsubsection{WRPC v4.2 for Spartan6 - Test bench flow}
+
+\noindent The testbench I used to simulate the WRPC is located in \href{https://gitlab.com/ohwr/project/wr-cores/-/tree/master/testbench/wrc_core}{testbench/wrc\_core} and is split into three different parts, as shown in the following image:
+
+\vspace{1mm}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{figures/tb_scheme.png}
+\caption{Scheme of the test bench.}
+\label{fig:tb-scheme}
+\end{figure}
+
+\noindent [Add explication of the tb flow]
+
+\newpage 
+
+\subsubsection{WRPC v4.2 for Spartan6 - CI}
+
 \noindent This simulation has been successfully integrated into the continuous integration pipeline of the GitLab repository, see \href{https://github.com/Unike267/Thesis/issues/3}{github.com/Unike267/Thesis/ issues/3}.
 Some of the most important steps that have been carried out are:
 
