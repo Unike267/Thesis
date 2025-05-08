@@ -526,18 +526,51 @@ I've successfully simulated WRPC \cite{WRPC:ohwr} in its \say{v4.2} version for 
 
 \subsubsection{WRPC v4.2 for Spartan6 - Test bench flow}
 
-\noindent The testbench I used to simulate the WRPC is located in \href{https://gitlab.com/ohwr/project/wr-cores/-/tree/master/testbench/wrc_core}{testbench/wrc\_core} and is split into three different parts, as shown in the following image:
-
-\vspace{1mm}
+\noindent The testbench I used to simulate the WRPC is located in \href{https://gitlab.com/ohwr/project/wr-cores/-/tree/master/testbench/wrc_core}{testbench/wrc\_core}, and the following image summarizes its behavior:
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{figures/tb_scheme.png}
-\caption{Scheme of the test bench.}
+\caption{Scheme of the testbench.}
 \label{fig:tb-scheme}
 \end{figure}
 
-\noindent [Add explication of the tb flow]
+\noindent As shown on the left side of Figure \ref{fig:tb-scheme}, the testbench code is divided into three main structures:
+
+\begin{itemize}
+\item \say{Timeout mechanism}
+\item \say{Configure – Frame generator}
+\item \say{Frame receiver and information displayer}
+\end{itemize}
+
+\noindent The \say{Timeout mechanism} structure is the timeout block, which ends the testbench if a transmission is ongoing and no frames are received.
+
+\vspace{5mm}
+
+\noindent The \say{Configure – Frame generator} structure sends the configuration via the DUT’s external Wishbone interface to its internal Wishbone crossbar.
+It then uses the function \say{send\_frames} (defined in the \say{functions.svh} file) to generate Ethernet frames and inject them through the ENDPOINT’s external fabric interface.
+This frame generation/injection loop continues until the specified number of frames (frame\_number) is generated/sent.
+After that, the process starts again, this time changing the IFG (Inter Frame Gap) from one (fixed) to zero (random).
+When this second phase finishes, and if the timeout has not been triggered, the testbench ends.
+
+\vspace{5mm}
+
+\noindent The \say{Frame receiver and information displayer} structure receives all Ethernet frames and displays information based on the data received.
+In its infinite loop, it analyzes the MAC address of each frame and determines whether it came from PTP\_MAC or SELF\_MAC.
+If the MAC address does not match either, an error message is displayed.
+This Ethernet frames are captured from the ENDPOINT’s external fabric interface. 
+Additionally, a special status message is shown every 50 frames received.
+
+\vspace{5mm}
+
+\noindent The following image illustrates the flow of the testbench:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{figures/tb_flow.png}
+\caption{Test bench flow.}
+\label{fig:tb-flow}
+\end{figure}
 
 \newpage 
 
