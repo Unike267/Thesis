@@ -574,6 +574,36 @@ Additionally, a special status message is shown every 50 frames received.
 
 \newpage 
 
+\subsubsection{WRPC v4.2 for Spartan6 - Analysis of test bench results}
+
+\noindent To simplify the interpretation of the testbench results, I’ve reduced the \say{number frame} constant to two.
+This means there will be four frame transmissions: two with a fixed IFG and two with a random IFG.
+I also modified the testbench to export the transmitted frames to a .txt file, so the transmitted data can be inspected.
+The contents of this frames text file are shown in Figure \ref{fig:frame-res}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14.5cm]{figures/frames.pdf}
+\caption{Frames extraction.}
+\label{fig:frame-res}
+\end{figure}
+
+\noindent Within the frame, there are many fields related to a standard Ethernet frame, but there are also some very interesting fields specific to the White Rabbit (WR) extension of PTP.
+One such field is the \say{ts} field, which represents the WR timestamp.
+The structure of this field is as follows:
+
+\begin{itemize}
+\item bit[27:0] ts\_r
+\item bit[3:0] ts\_f
+\item bit[5:0] port\_id
+\item bit[15:0] frame\_id
+\end{itemize}
+
+\noindent These signals are defined in Section \textbf{8.1.6 Fabric Interface – Rx OOB Format}, of the wrpc-user manual \cite{WR-core:manual}.
+Later, we will examine them in more detail when we analyze the frame.
+
+\vspace{5mm}
+
 \subsubsection{WRPC v4.2 for Spartan6 - CI}
 
 \noindent This simulation has been successfully integrated into the continuous integration pipeline of the GitLab repository, see \href{https://github.com/Unike267/Thesis/issues/3}{github.com/Unike267/Thesis/ issues/3}.
