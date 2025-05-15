@@ -49,6 +49,14 @@ To perform the simulation, for example, using Questasim, I would need to configu
 However, this custom set-up is already deployed in my private GitLab repository, see [#3](https://github.com/Unike267/Thesis/issues/3).
 
 To see how I simulated [`WRPC-v.4.2`](https://gitlab.com/ohwr/project/wr-cores/-/tree/wrpc-v4.2) locally, see [#2](https://github.com/Unike267/Thesis/issues/2).
+
+## Implementation
+
+We are beginning the first practical tests on the board.
+
+- [cute_a7](https://ohwr.org/projects/cute-wr-a7/)
+  - [gl:cute-wr-a7](https://gitlab.com/ohwr/project/cute-wr-a7)
+  - Manufacturated by Sync (Beijing) Technology [Cute-WR-A7/50T](http://www.synctechnology.cn/EN_detaile.aspx?id=39)
  
 ## GOAL
 
