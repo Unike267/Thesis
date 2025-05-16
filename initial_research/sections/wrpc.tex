@@ -39,16 +39,66 @@ It also implements the White Rabbit protocol to provide sub-nanosecond time sync
 
 \subsubsection{WR TimeStamping Unit - TSU}
 
-\noindent TSU is a hardware implementation of a unit to generate timestampings, guaranteeing single-cycle timestamping accuracy, which is necessary for reliably merging the coarse delay with the \say{phaseMM} phase shift during fine delay calculation \cite{wr-draft}.
+\noindent The TSU (Timestamping Unit) is a hardware implementation designed to generate timestamps with single-cycle accuracy. This level of precision is essential for reliably merging the coarse delay with the \say{phaseMM} phase shift during fine delay calculations \cite{wr-draft}.
 
 \vspace{5mm}
 
-\noindent A diagram of the structure of a WR timestamping unit (TSU) can be found in the appendix \say{B.3 Coarse delay measurement} of the \say{White Rabbit Specification: Draft for Comments} \cite{wr-draft} document.
+\noindent A diagram illustrating the structure of a WR Timestamping Unit (TSU) can be found in \say{Appendix B.3 Coarse Delay Measurement} of the \say{White Rabbit Specification: Draft for Comments} \cite{wr-draft}.
 
 \vspace{5mm}
 
-\noindent The timestamping is triggered through a pulse.
-Due to the fact the WR is an extension of a ethernet PTP protocol this pulse is generated when the Physical Coding Sublayer (PCS) detects a Start-of-Frame Delimiter (SFD) character in the incoming (RX timestamps) or outgoing (TX timestamps) data stream.
+\noindent Timestamping is triggered by a pulse.
+Since White Rabbit is an extension of the Ethernet PTP protocol, this pulse is generated when the Physical Coding Sublayer (PCS) detects a Start-of-Frame Delimiter (SFD) character in the incoming (RX timestamps) or outgoing (TX timestamps) data stream.
+
+\vspace{5mm} 
+
+\noindent The first encoding step is the encapsulation of Ethernet frames in the PCS.
+This process extends plain Ethernet frames with preambles and start/end of packet control sequences and generates a special idle pattern when no data is being transmitted, keeping the link active  which is necessary to maintain correct operation of the optoelectronics and clock recovery logic in the receiver.
+The PCS encapsulation unit also generates a pulse coherent with the transmission of the Start-of-packet ordered set, which is used to gather WR-compatible deterministic packet transmission timestamps. Clock synchronization requires the knowledge of the link latency. 
+In packet networks, such as Ethernet, the latency can be measured by analyzing the packets’ send and receive timestamps.
+In order to achieve the maximum possible measurement accuracy, timestamping in WR is done by the PCS sublayer, before the data crosses clock domains or is passed to blocks introducing varying latencies (e.g. FIFOs). The timestamps are produced by a free-running counter gated by the pulses coming from transmitter and receiver PCS units. \cite{Tomasz-MSc}
+
+\vspace{5mm} 
+
+\noindent The HDL files that describe the \say{pulse\_stamper} (aka Timestamping Unit – TSU) can be found in \cite{WRPC:ohwr}, and they are listed as follows:
+
+\begin{dig}
+\item wr-cores/modules/timing/pulse\_stamper.vhd
+\begin{dig}
+\item wr-cores/ip\_cores/general-cores/modules/common/gc\_sync\_ffs.vhd
+\begin{dig}
+\item wr-cores/ip\_cores/general-cores/modules/common/gc\_sync.vhd
+\item wr-cores/ip\_cores/general-cores/modules/common/gc\_edge \_detect.vhd
+\end{dig}
+\item wr-cores/ip\_cores/general-cores/modules/common/gc\_pulse \_synchronizer.vhd
+\begin{dig}
+\item wr-cores/ip\_cores/general-cores/modules/common/gc\_pulse \_synchronizer2.vhd
+\end{dig}
+\end{dig}
+\end{dig}
+
+\noindent Based on this hierarchy, the schematic shown in Figure \ref{fig:TSU-dig} has been generated.
+
+\begin{landscape}
+\newgeometry{
+	paper=a3paper, % Change to letterpaper for US letter
+	inner=0cm, % Inner margin
+	outer=5cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=12cm, % Top margin
+	bottom=-5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=26cm]{figures/TSU_pulse_stamper.pdf}
+    \captionsetup{name=\hspace{8cm}Figure,format=plain,justification=centering,width=20cm}
+    \caption{Pulse\_stamper (TimeStamping Unit - TSU) schematic.}
+    \label{fig:TSU-dig}
+\end{figure}
+\restoregeometry
+\end{landscape}
 
 \subsubsection{\textmu RV}
 
