@@ -37,6 +37,19 @@ It also implements the White Rabbit protocol to provide sub-nanosecond time sync
 
 \subsection{Core Parts}
 
+\subsubsection{WR TimeStamping Unit - TSU}
+
+\noindent TSU is a hardware implementation of a unit to generate timestampings, guaranteeing single-cycle timestamping accuracy, which is necessary for reliably merging the coarse delay with the \say{phaseMM} phase shift during fine delay calculation \cite{wr-draft}.
+
+\vspace{5mm}
+
+\noindent A diagram of the structure of a WR timestamping unit (TSU) can be found in the appendix \say{B.3 Coarse delay measurement} of the \say{White Rabbit Specification: Draft for Comments} \cite{wr-draft} document.
+
+\vspace{5mm}
+
+\noindent The timestamping is triggered through a pulse.
+Due to the fact the WR is an extension of a ethernet PTP protocol this pulse is generated when the Physical Coding Sublayer (PCS) detects a Start-of-Frame Delimiter (SFD) character in the incoming (RX timestamps) or outgoing (TX timestamps) data stream.
+
 \subsubsection{\textmu RV}
 
 The \textmu RV \cite{urv-core:ohwr} \cite{urv-core:wiki} \cite{Włostowski:2213516} (Micro RISC-V) core is a small-sized implementation of a 32-bit RISC-V core, targeted specifically at FPGAs developed by CERN. 
