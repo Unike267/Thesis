@@ -52,7 +52,7 @@ To see how I simulated [`WRPC-v.4.2`](https://gitlab.com/ohwr/project/wr-cores/-
 
 ## Implementation
 
-We are beginning the first practical tests on the board.
+We are beginning the first practical tests on the board:
 
 - [cute_a7](https://ohwr.org/projects/cute-wr-a7/)
   - [gl:cute-wr-a7](https://gitlab.com/ohwr/project/cute-wr-a7)
