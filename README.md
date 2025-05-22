@@ -66,6 +66,8 @@ To perform this ASIC:
   <img src="figures/ASIC-Scheme.svg" alt="ASIC Schematic">
 </p>
 
+*Note: This diagram was created at the beginning of the project as a simplified draft of the intended implementation and will likely be updated as the project evolves.*
+
 ---
 
 This work was partially supported by Union Europea-NextGenerationEU through the Cátedras Chip program SOC4SENSING TSI-069100-2023-0004.
