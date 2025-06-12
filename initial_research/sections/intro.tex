@@ -292,6 +292,21 @@ If a 32-bit device is accessed by a 16-bit device, the 16-bit device can only se
 \noindent Address width is negotiated by Etherbone simply to determine the amount of space to reserve for message exchanges. 
 A hardware implementation is free to only advertise address widths whose message alignment is convenient to them.
 
+\paragraph{Etherbone Message}
+
+\noindent The Etherbone protocol defines a specific message format to enable remote Wishbone read and write accesses. Figure \ref{fig:EtherBone-msg} shows the structure of such a message. To perform a read operation from a remote slave, one must send an Ethernet frame conforming to this format, specifying the appropriate target addresses. Similarly, to carry out a remote Wishbone write access, a properly formatted Etherbone message must be sent.
+
+\vspace{5 mm}
+
+\noindent [To be completed: include a Wireshark capture to illustrate that a read operation involves multiple Ethernet frame exchanges between the Etherbone master and slave. Also, describe how the presence of a correctly configured crossbar with the System Device Bus (SDB) is required to identify the Etherbone slave in the system and successfully route the read request. Each step of the transaction process will be detailed.]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{figures/EtherBone_msg.pdf}
+    \caption{EtherBone message}
+    \label{fig:EtherBone-msg}
+\end{figure}
+
 \subsubsection{Chronos Project}
 
 Chronos is an advanced timing and synchronization project at CERN, designed to support extremely precise timekeeping requirements in high-energy physics experiments. 
