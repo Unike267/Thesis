@@ -1,9 +1,16 @@
 \documentclass[a4paper,12pt]{article}
+%\documentclass[]{standalone}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
 \usepackage{relsize}
-\usepackage[a4paper, total={8in, 8in}]{geometry}
+%\usepackage[a4paper, total={8in, 8in}]{geometry}
+\usepackage{amsmath} % for \longrightarrow
+\usetikzlibrary {decorations.pathmorphing,shadows} 
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary {arrows.meta} 
+\usepackage{relsize}
+\usepackage{pgfmath}
 
 \tikzset{fontscale/.style = {font=\relsize{#1}}}
 
@@ -92,11 +99,11 @@
 \def\titdesplav{3.65}
 
 
-\begin{tikzpicture}
+\begin{tikzpicture}[remember picture, overlay]
+\node at (0,0) {c};
 \node (center) {};
-
 %%%%%%%%%%%%%%%%%%%%%%%%%       TITULO      %%%%%%%%%%%%%%%%%%%%%%%%%
-\path (center)+(\titdesplah,\titdesplav) node (name) {SoC (ASIC) [PERTE CHIP]};
+\path (0,0)+(\titdesplah,\titdesplav) node (name) {SoC (ASIC) [PERTE CHIP]};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%       BLQUES      %%%%%%%%%%%%%%%%%%%%%%%%%
 %NEORV32
@@ -183,6 +190,8 @@
 \draw[dotted] (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap+\aspadv) to (\fftdesplah+\ffth,0);
 \draw[loosely dotted] (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap+\aspadv) to (\fftdesplah+\ffth,\aspaddesplav+2*\aspadgap-1);
 
+\path (8,-3) node[rotate=45]  (name)[fontscale=4,color=red] {OUTDATED DIAGRAM};
+    
 \begin{pgfonlayer}{background}
     %Background
     \path [fill=white!20] (-0.5,-10.5) rectangle ++(16.5,15);
