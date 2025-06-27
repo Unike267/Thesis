@@ -63,7 +63,7 @@ We are beginning the first practical tests on the board:
 To perform this ASIC:
 
 <p align="center">
-  <img src="figures/ASIC-Scheme.svg" alt="ASIC Schematic">
+  <img src="figures/ASIC-Diagram.svg" alt="ASIC Schematic">
 </p>
 
 *Note: This diagram was created at the beginning of the project as a simplified draft of the intended implementation and will likely be updated as the project evolves.*
