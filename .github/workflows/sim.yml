@@ -16,9 +16,9 @@ jobs:
 
     steps:
 
-      - name: 'Configure Git to change from SSH to HTTPS'
+      - name: 'Configure Git to change from SSH to HTTPS in wrpc-sw repo'
         run: |
-          git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com"
+          git config --global url."https://gitlab.com/ohwr/project/wrpc-sw.git".insteadOf "git@gitlab.com:ohwr/project/wrpc-sw.git"
 
       - name: '🧰 Checkout'
         uses: actions/checkout@v4
