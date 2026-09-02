@@ -12,11 +12,6 @@ jobs:
 
     steps:
 
-      - name: 'Configure Git to change from SSH to HTTPS in wrpc-sw and ppsi repos'
-        run: |
-          git config --global url."https://gitlab.com/ohwr/project/wrpc-sw.git".insteadOf "git@gitlab.com:ohwr/project/wrpc-sw.git"
-          git config --global url."https://gitlab.com/ohwr/project/ppsi.git".insteadOf "git@gitlab.com:ohwr/project/ppsi.git"
-
       - name: '🧰 Checkout'
         uses: actions/checkout@v4
         with:
